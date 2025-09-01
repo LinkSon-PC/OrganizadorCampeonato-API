@@ -4,3 +4,21 @@ GET {{OrganizadorCampeonato_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{OrganizadorCampeonato_HostAddress}}/api/personas
+Accept: application/json
+Content-Type: application/json
+
+###
+
+POST {{OrganizadorCampeonato_HostAddress}}/api/personas
+Accept: application/json
+Content-Type: application/json
+
+{
+  "identificacion": "1112223334441",
+  "nombres": "Anthony",
+  "apellidos": "Son",
+  "fechaNaciemiento": "2000-06-01T14:00:00",
+  "telefono": "22224444"
+}
