@@ -44,5 +44,7 @@ namespace OrganizadorCampeonato.Persistencia
 
         public DbSet<Persona> Personas { get; set; }
         public DbSet<Jugador> Jugadores { get; set; }
+        public DbSet<Entrenador> Entrenadores { get; set; }
+        public DbSet<Equipo> Equipos { get; set; }
     }
 }
