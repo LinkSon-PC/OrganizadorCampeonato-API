@@ -40,7 +40,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         private void ValidarNombres(string nombres)
         {
             if(string.IsNullOrWhiteSpace(nombres))
-                throw new ExcepcionReglaDeNegocio("Debe ingresar un Nombre");
+                throw new ExcepcionReglaDeNegocio($"El campo {Nombres.GetType().Name} es requerido");
         }
 
         private void ValidarApellidos(string apellidos)
@@ -52,7 +52,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         private void ValidarIdentificacion(string identificacion)
         {
             if (string.IsNullOrEmpty(identificacion))
-                throw new ExcepcionReglaDeNegocio("Debe ingresar un numero de identificación");
+                throw new ExcepcionReglaDeNegocio($"El campo {Identificacion.GetType().Name} es requerido");
 
             if (!long.TryParse(identificacion, out _) || identificacion.Length != 13)
                 throw new ExcepcionReglaDeNegocio("Debe ingresar un número de identificación válido");

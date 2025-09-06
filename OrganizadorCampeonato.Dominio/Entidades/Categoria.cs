@@ -10,6 +10,13 @@ namespace OrganizadorCampeonato.Dominio.Entidades
 {
     public class Categoria : EntidadAuditable<Guid>
     {
+        private Categoria() { }
+        public Categoria(TipoCategoria categoria, TipoGenero genero)
+        {
+            Tipo = categoria;
+            Genero = genero;
+        }
+
         public TipoCategoria Tipo { get; set; }
         public TipoGenero Genero { get; set; }
         public List<Torneo> Torneos { get; set; }
