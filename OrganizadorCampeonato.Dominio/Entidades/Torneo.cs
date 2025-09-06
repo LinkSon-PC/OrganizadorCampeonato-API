@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace OrganizadorCampeonato.Dominio.Entidades
 {
-    public class Equipo : EntidadAuditable<Guid>
+    public class Torneo : EntidadAuditable<Guid>
     {
         public string Nombre { get; private set; }
-        public Guid EntrenadorId { get; private set; }
-        public Entrenador Entrenador { get; private set; }
+        public Guid? CategoriaId { get; private set; }
+        public Categoria? Categoria { get; private set; }
         public List<TorneoEquipo> TorneoEquipo { get; private set; }
     }
 }
