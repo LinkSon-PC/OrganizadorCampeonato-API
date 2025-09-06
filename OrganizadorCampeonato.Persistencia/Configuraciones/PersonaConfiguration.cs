@@ -26,6 +26,11 @@ namespace OrganizadorCampeonato.Persistencia.Configuraciones
 
             builder.Property(x => x.Telefono)
                 .HasMaxLength(8);
+
+            builder.HasOne(p => p.Jugador)
+                   .WithOne(j => j.Persona)
+                   .HasForeignKey<Jugador>(p => p.Id)
+                   .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

@@ -9,6 +9,6 @@ namespace OrganizadorCampeonato.Dominio.Entidades
 {
     public class Entrenador : EntidadAuditable<Guid>
     {
-        public Persona? PersonaId { get; private set; }
+        public Persona PersonaId { get; private set; } = null!;
     }
 }

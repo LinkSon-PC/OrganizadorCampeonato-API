@@ -11,38 +11,84 @@ namespace OrganizadorCampeonato.Dominio.Entidades
 {
     public class Persona : EntidadAuditable<Guid>
     {
+        public string Identificacion { get; private set; }
+        public string Nombres { get; private set; }
+        public string Apellidos { get; private set; }
+        public DateTime FechaNacimiento { get; private set; }
+        public string? Telefono { get; private set; }
+        public Jugador? Jugador { get; private set; } = null;
+
         private Persona() { }
 
         public Persona(string identificacion, string nombre, string apellidos, DateTime fechaNacimiento, string telefono)
         {
+            ValidarNombres(nombre);
+            ValidarApellidos(apellidos);
             ValidarIdentificacion(identificacion);
             ValidarTelefono(telefono);
 
             Identificacion = identificacion;
             Nombres = nombre;
             Apellidos = apellidos;
-            FechaNaciemiento = fechaNacimiento;
+            FechaNacimiento = fechaNacimiento;
             Telefono = telefono;
 
             Id = Guid.CreateVersion7();
         }
 
-        private void ValidarIdentificacion(string identifiacacion)
+        private void ValidarNombres(string nombres)
         {
-            if (uint.TryParse(identifiacacion, out _) && identifiacacion.Length != 13)
+            if(string.IsNullOrWhiteSpace(nombres))
+                throw new ExcepcionReglaDeNegocio("Debe ingresar un Nombre");
+        }
+
+        private void ValidarApellidos(string apellidos)
+        {
+            if (string.IsNullOrWhiteSpace(apellidos))
+                throw new ExcepcionReglaDeNegocio("Debe ingresar un Apellido");
+        }
+
+        private void ValidarIdentificacion(string identificacion)
+        {
+            if (string.IsNullOrEmpty(identificacion))
+                throw new ExcepcionReglaDeNegocio("Debe ingresar un numero de identificación");
+
+            if (!long.TryParse(identificacion, out _) || identificacion.Length != 13)
                 throw new ExcepcionReglaDeNegocio("Debe ingresar un número de identificación válido");
         }
 
-        private void ValidarTelefono(string telefono)
+        private void ValidarTelefono(string? telefono)
         {
-            if (uint.TryParse(telefono, out _) && telefono.Length != 8)
+            if (string.IsNullOrEmpty(telefono))
+                return;
+
+            if (!uint.TryParse(telefono, out _) || telefono.Length != 8)
                 throw new ExcepcionReglaDeNegocio("Debe ingresar un número de teléfono válido");
         }
 
-        public string Identificacion { get; private set; }
-        public string Nombres { get; private set; }
-        public string Apellidos { get; private set; }
-        public DateTime FechaNaciemiento { get; private set; }
-        public string Telefono { get; private set; }
+        public void SetIdentificacion(string identificacion)
+        {
+            ValidarIdentificacion(identificacion);
+            Identificacion = Identificacion;
+        }
+        public void SetNombres(string nombres)
+        {
+            ValidarNombres(nombres);
+            Nombres = nombres;
+        }
+        public void SetApellidos(string apellidos)
+        {
+            ValidarApellidos(apellidos);
+            Apellidos = apellidos;
+        }
+        public void SetTelefono(string? telefono)
+        {
+            ValidarTelefono(telefono);
+            Telefono = telefono;
+        }
+        public void SetFechaNacimiento(DateTime fechaNacimiento)
+        {
+            FechaNacimiento = fechaNacimiento;
+        }
     }
 }

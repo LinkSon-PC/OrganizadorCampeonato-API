@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace OrganizadorCampeonato.Aplicacion.Comunes.Mediator
 {
-    public interface IRequestHandler <TRequesta>
-        where TRequesta : IRequest
+    public interface IRequestHandler <TRequest>
+        where TRequest : IRequest
     {
-        Task Handle(TRequesta request);
+        Task Handle(TRequest request);
     }
 
     public interface IRequestHandler<TRequest, TResponse>

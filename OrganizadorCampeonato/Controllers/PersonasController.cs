@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Comandos.ActualizarPersona;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Comandos.AgregarPersona;
+using OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.ObtenerPorId;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.ObtenerTodos;
 using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
-using OrganizadorCampeonato.Aplicacion.Contratos.Repositorios;
-using OrganizadorCampeonato.Dominio.Entidades;
 using OrganizadorCampeonato.Modelos.Personas;
 using System.Threading.Tasks;
 
@@ -25,7 +25,7 @@ namespace OrganizadorCampeonato.Controllers
 
         // GET: api/<PersonasController>
         [HttpGet]
-        public async Task<ActionResult<List<PersonaDTO>>> Get()
+        public async Task<ActionResult<List<ListadoPersonasDTO>>> Get()
         {
             var consulta = new ConsultaObtenerTodosPersonas();
             var resultado = await mediator.Send(consulta);
@@ -34,21 +34,23 @@ namespace OrganizadorCampeonato.Controllers
 
         // GET api/<PersonasController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult> Get(Guid id)
         {
-            return "value";
+            var consulta = new ConsultaObtenerPersonaPorId{ Id = id};
+            var persona = await mediator.Send(consulta);
+            return Ok(persona);
         }
 
         // POST api/<PersonasController>
         [HttpPost]
-        public async Task<ActionResult<Guid>> Post([FromBody] AgregarPersonaDTO value)
+        public async Task<ActionResult<Guid>> Post([FromBody] AgregarJugadorDTO value)
         {
             var comando = new ComandoAgregarPersona
             {
                 Identificacion = value.Identificacion,
                 Nombres = value.Nombres,
                 Apellidos = value.Apellidos,
-                FechaNaciemiento = value.FechaNaciemiento,
+                FechaNaciemiento = value.FechaNacimiento,
                 Telefono = value.Telefono
             };
             var resultado = await mediator.Send(comando);
@@ -57,8 +59,18 @@ namespace OrganizadorCampeonato.Controllers
 
         // PUT api/<PersonasController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task Put(Guid id, [FromBody] ActualizarPersona personaDto)
         {
+            var comando = new ComandoActualizarPersona
+            {
+                Id = id,
+                Identificacion = personaDto.Identificacion,
+                Nombres = personaDto.Nombres,
+                Apellidos = personaDto.Apellidos,
+                Telefono = personaDto.Telefono,
+                FechaNaciemiento = personaDto.FechaNacimiento
+            };
+            await mediator.Send(comando);
         }
 
         // DELETE api/<PersonasController>/5

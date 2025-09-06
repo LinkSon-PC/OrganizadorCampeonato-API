@@ -9,39 +9,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Comandos.AgregarPersona
+namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Jugadores.Comandos.AgregarJugador
 {
-    public class CasoDeUsoAgregarPersona : IRequestHandler<ComandoAgregarPersona, Guid>
+    public class CasoDeUsoAgregarJugador : IRequestHandler<ComandoAgregarJugador, Guid>
     {
-        private readonly IRepositorioPersona repositorio;
+        private readonly IRepositorioPersona repositorioPersona;
+        private readonly IRepositorioJugador repositorioJugador;
         private readonly IUnidadDeTrabajo unidadDeTrabajo;
 
-        public CasoDeUsoAgregarPersona(IRepositorioPersona repositorio, IUnidadDeTrabajo unidadDeTrabajo)
+        public CasoDeUsoAgregarJugador(IRepositorioPersona persona, IRepositorioJugador jugador,
+            IUnidadDeTrabajo unidadDeTrabajo)
         {
-            this.repositorio = repositorio;
+            this.repositorioPersona = persona;
+            this.repositorioJugador = jugador;
             this.unidadDeTrabajo = unidadDeTrabajo;
         }
 
-        public async Task<Guid> Handle(ComandoAgregarPersona request)
+        public async Task<Guid> Handle(ComandoAgregarJugador request)
         {
-            if (await repositorio.IdentificacionYaRegistrada(request.Identificacion))
+            if (await repositorioPersona.IdentificacionYaRegistrada(request.Identificacion))
             {
                 throw new ExcepcionDeValidacion("Identificación ya registrada");
             }
 
-            var persona = new Persona(
-                request.Identificacion,
+            Persona persona = new Persona(
+                request.Identificacion, 
                 request.Nombres, 
                 request.Apellidos, 
                 request.FechaNaciemiento, 
-                request.Telefono
+                request.Telefono!
             );
+            Jugador jugado = new Jugador(persona.Id);
 
             try
             {
-                var resultado = await repositorio.Agregar(persona);
+                await repositorioPersona.Agregar(persona);
+                await repositorioJugador.Agregar(jugado);
+
                 await unidadDeTrabajo.Persistir();
-                return resultado.Id;
+                return persona.Id;
             }
             catch (Exception ex)
             {

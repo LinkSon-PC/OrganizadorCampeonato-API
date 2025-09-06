@@ -9,15 +9,15 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.Obtener
 {
     public static class MapeadorPersona
     {
-        public static PersonaDTO ADto (this Persona persona)
+        public static ListadoPersonasDTO ADto (this Persona persona)
         {
-            return new PersonaDTO
+            return new ListadoPersonasDTO
             {
                 Id = persona.Id,
                 Nombres = persona.Nombres,
                 Apellidos = persona.Apellidos,
                 Identificacion = persona.Identificacion,
-                FechaNaciemiento = persona.FechaNaciemiento,
+                FechaNaciemiento = persona.FechaNacimiento,
                 Telefono = persona.Telefono
             };
         }

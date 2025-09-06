@@ -1,14 +1,14 @@
-﻿using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Comandos.AgregarPersona
+namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.ObtenerPorId
 {
-    public class ComandoAgregarPersona : IRequest<Guid>
+    public class PersonaDTO
     {
+        public Guid Id { get; set; }
         public required string Identificacion { get; set; }
         public required string Nombres { get; set; }
         public required string Apellidos { get; set; }

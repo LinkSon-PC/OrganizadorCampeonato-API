@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Comandos.AgregarPersona
+namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Comandos.ActualizarPersona
 {
-    public class ComandoAgregarPersona : IRequest<Guid>
+    public class ComandoActualizarPersona : IRequest
     {
+        public required Guid Id { get; set; }
         public required string Identificacion { get; set; }
         public required string Nombres { get; set; }
         public required string Apellidos { get; set; }

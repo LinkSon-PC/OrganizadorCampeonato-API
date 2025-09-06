@@ -42,6 +42,7 @@ namespace OrganizadorCampeonato.Persistencia
             return base.SaveChangesAsync(cancellationToken);
         }
 
-        DbSet<Persona> Personas { get; set; }
+        public DbSet<Persona> Personas { get; set; }
+        public DbSet<Jugador> Jugadores { get; set; }
     }
 }

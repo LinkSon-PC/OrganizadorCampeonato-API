@@ -1,17 +1,12 @@
-@OrganizadorCampeonato_HostAddress = http://localhost:5133
+@OrganizadorCampeonato_HostAddress = http://localhost:5133/api/jugadores
 
-GET {{OrganizadorCampeonato_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
-
-GET {{OrganizadorCampeonato_HostAddress}}/api/personas
+GET {{OrganizadorCampeonato_HostAddress}}
 Accept: application/json
 Content-Type: application/json
 
 ###
 
-POST {{OrganizadorCampeonato_HostAddress}}/api/personas
+POST {{OrganizadorCampeonato_HostAddress}}
 Accept: application/json
 Content-Type: application/json
 

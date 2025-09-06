@@ -1,0 +1,37 @@
+@OrganizadorCampeonato_HostAddress = http://localhost:5133/api/personas
+
+GET {{OrganizadorCampeonato_HostAddress}}
+Accept: application/json
+
+###
+
+GET {{OrganizadorCampeonato_HostAddress}}/01990cca-75d4-7dda-aac3-9ee098242899
+Accept: application/json
+
+###
+
+POST {{OrganizadorCampeonato_HostAddress}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "identificacion": "1112223334442",
+  "nombres": "Fernando",
+  "apellidos": "Mux",
+  "fechaNacimiento": "2000-06-01T14:00:00",
+  "telefono": "22224444"
+}
+
+###
+
+PUT {{OrganizadorCampeonato_HostAddress}}/01990cca-75d4-7dda-aac3-9ee098242899
+Accept: application/json
+Content-Type: application/json
+
+{
+  "identificacion": "1112223334442",
+  "nombres": "Fernando",
+  "apellidos": "Mux",
+  "fechaNacimiento": "2000-06-01T14:00:00",
+  "telefono": ""
+}

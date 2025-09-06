@@ -22,6 +22,28 @@ namespace OrganizadorCampeonato.Persistencia.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("OrganizadorCampeonato.Dominio.Entidades.Jugador", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreadoPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UltimaFechaModificacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UltimaModificacionPor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Jugadores");
+                });
+
             modelBuilder.Entity("OrganizadorCampeonato.Dominio.Entidades.Persona", b =>
                 {
                     b.Property<Guid>("Id")
@@ -39,7 +61,7 @@ namespace OrganizadorCampeonato.Persistencia.Migrations
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FechaNaciemiento")
+                    b.Property<DateTime>("FechaNacimiento")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Identificacion")
@@ -66,6 +88,22 @@ namespace OrganizadorCampeonato.Persistencia.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Personas");
+                });
+
+            modelBuilder.Entity("OrganizadorCampeonato.Dominio.Entidades.Jugador", b =>
+                {
+                    b.HasOne("OrganizadorCampeonato.Dominio.Entidades.Persona", "Persona")
+                        .WithOne("Jugador")
+                        .HasForeignKey("OrganizadorCampeonato.Dominio.Entidades.Jugador", "Id")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Persona");
+                });
+
+            modelBuilder.Entity("OrganizadorCampeonato.Dominio.Entidades.Persona", b =>
+                {
+                    b.Navigation("Jugador");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,6 @@
 ﻿namespace OrganizadorCampeonato.Modelos.Personas
 {
-    public class AgregarJugadorDTO
+    public class ActualizarPersona
     {
         public required string Identificacion { get; set; }
         public required string Nombres { get; set; }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.ObtenerTodos
 {
-    public class CasoDeUsoObtenerTodosPersonas : IRequestHandler<ConsultaObtenerTodosPersonas, List<PersonaDTO>>
+    public class CasoDeUsoObtenerTodosPersonas : IRequestHandler<ConsultaObtenerTodosPersonas, List<ListadoPersonasDTO>>
     {
         private readonly IRepositorioPersona repositorio;
 
@@ -17,7 +17,7 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.Obtener
             this.repositorio = repositorio;
         }
 
-        public Task<List<PersonaDTO>> Handle(ConsultaObtenerTodosPersonas request)
+        public Task<List<ListadoPersonasDTO>> Handle(ConsultaObtenerTodosPersonas request)
         {
             var personas = repositorio.ObtenerTodos().Result.Select(x => x.ADto()).ToList();
             return Task.FromResult(personas);

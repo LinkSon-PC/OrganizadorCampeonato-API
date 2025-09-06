@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Comandos.AgregarPersona
+namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Jugadores.Comandos.AgregarJugador
 {
-    public class ComandoAgregarPersona : IRequest<Guid>
+    public class ComandoAgregarJugador : IRequest<Guid>
     {
         public required string Identificacion { get; set; }
         public required string Nombres { get; set; }

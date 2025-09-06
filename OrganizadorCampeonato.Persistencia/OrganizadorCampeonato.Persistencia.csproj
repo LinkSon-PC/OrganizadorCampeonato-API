@@ -15,4 +15,8 @@
     <ProjectReference Include="..\OrganizadorCampeonato.Dominio\OrganizadorCampeonato.Dominio.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

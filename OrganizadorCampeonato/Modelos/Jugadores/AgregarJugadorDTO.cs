@@ -1,4 +1,4 @@
-﻿namespace OrganizadorCampeonato.Modelos.Personas
+﻿namespace OrganizadorCampeonato.Modelos.Jugadores
 {
     public class AgregarJugadorDTO
     {

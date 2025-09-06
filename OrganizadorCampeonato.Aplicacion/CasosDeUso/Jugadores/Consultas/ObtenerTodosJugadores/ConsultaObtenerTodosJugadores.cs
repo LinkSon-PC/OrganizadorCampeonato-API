@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.ObtenerTodos
+namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Jugadores.Consultas.ObtenerTodosJugadores
 {
-    public class ConsultaObtenerTodosPersonas : IRequest<List<ListadoPersonasDTO>>
+    public class ConsultaObtenerTodosJugadores : IRequest<List<JugadorDTO>>
     {
     }
 }
