@@ -9,23 +9,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Jugadores.Comandos.AgregarJugador
+namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Entrenadores.Comandos.AgregarEntrenador
 {
-    public class CasoDeUsoAgregarJugador : IRequestHandler<ComandoAgregarJugador, Guid>
+    public class CasoDeUsoAgregarEntrenador : IRequestHandler<ComandoAgregarEntrenador, Guid>
     {
-        private readonly IRepositorioPersona repositorioPersona;
-        private readonly IRepositorioJugador repositorioJugador;
+        private readonly IRepositorioEntrenador repositorioEntrenador;
         private readonly IUnidadDeTrabajo unidadDeTrabajo;
+        private readonly IRepositorioPersona repositorioPersona;
 
-        public CasoDeUsoAgregarJugador(IRepositorioPersona persona, IRepositorioJugador jugador,
+        public CasoDeUsoAgregarEntrenador(IRepositorioPersona repositorioPersona, IRepositorioEntrenador repositorioEntrenador,
             IUnidadDeTrabajo unidadDeTrabajo)
         {
-            this.repositorioPersona = persona;
-            this.repositorioJugador = jugador;
+            this.repositorioEntrenador = repositorioEntrenador;
             this.unidadDeTrabajo = unidadDeTrabajo;
+            this.repositorioPersona = repositorioPersona;
         }
 
-        public async Task<Guid> Handle(ComandoAgregarJugador request)
+        public async Task<Guid> Handle(ComandoAgregarEntrenador request)
         {
             if (await repositorioPersona.IdentificacionYaRegistrada(request.Identificacion))
             {
@@ -33,19 +33,19 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Jugadores.Comandos.Agregar
             }
 
             Persona persona = new Persona(
-                request.Identificacion, 
-                request.Nombres, 
-                request.Apellidos, 
-                request.FechaNaciemiento, 
+                request.Identificacion,
+                request.Nombres,
+                request.Apellidos,
+                request.FechaNacimiento,
                 request.Telefono!,
                 request.Genero
             );
-            Jugador jugado = new Jugador(persona.Id);
+            Entrenador entrenador = new Entrenador(persona.Id);
 
             try
             {
                 await repositorioPersona.Agregar(persona);
-                await repositorioJugador.Agregar(jugado);
+                await repositorioEntrenador.Agregar(entrenador);
 
                 await unidadDeTrabajo.Persistir();
                 return persona.Id;

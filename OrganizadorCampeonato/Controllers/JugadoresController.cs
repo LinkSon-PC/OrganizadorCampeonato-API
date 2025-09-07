@@ -28,7 +28,7 @@ namespace OrganizadorCampeonato.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Guid>> Post([FromBody] AgregarJugadorDTO jugadorDTO)
+        public async Task<ActionResult<Guid>> Post([FromBody] AgregarEntrenadorDTO jugadorDTO)
         {
             var comando = new ComandoAgregarJugador
             {
@@ -36,7 +36,8 @@ namespace OrganizadorCampeonato.Controllers
                 Nombres = jugadorDTO.Nombres,
                 Apellidos = jugadorDTO.Apellidos,
                 Telefono = jugadorDTO.Telefono,
-                FechaNaciemiento = jugadorDTO.FechaNacimiento
+                FechaNaciemiento = jugadorDTO.FechaNacimiento,
+                Genero = jugadorDTO.Genero,
             };
             var resultado = await mediator.Send(comando);
             return resultado;

@@ -1,4 +1,5 @@
 ﻿using OrganizadorCampeonato.Dominio.Comunes;
+using OrganizadorCampeonato.Dominio.Enum;
 using OrganizadorCampeonato.Dominio.Excepciones;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,14 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         public string Nombres { get; private set; }
         public string Apellidos { get; private set; }
         public DateTime FechaNacimiento { get; private set; }
+        public TipoGenero Genero { get; private set; }
         public string? Telefono { get; private set; }
         public Jugador? Jugador { get; private set; } = null;
         public Entrenador? Entrenador { get; private set; } = null;
 
         private Persona() { }
 
-        public Persona(string identificacion, string nombre, string apellidos, DateTime fechaNacimiento, string telefono)
+        public Persona(string identificacion, string nombre, string apellidos, DateTime fechaNacimiento, string telefono, TipoGenero genero)
         {
             ValidarNombres(nombre);
             ValidarApellidos(apellidos);
@@ -33,6 +35,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
             Apellidos = apellidos;
             FechaNacimiento = fechaNacimiento;
             Telefono = telefono;
+            Genero = genero;
 
             Id = Guid.CreateVersion7();
         }
@@ -52,7 +55,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         private void ValidarIdentificacion(string identificacion)
         {
             if (string.IsNullOrEmpty(identificacion))
-                throw new ExcepcionReglaDeNegocio($"El campo {Identificacion.GetType().Name} es requerido");
+                throw new ExcepcionReglaDeNegocio($"El campo {identificacion.GetType().Name} es requerido");
 
             if (!long.TryParse(identificacion, out _) || identificacion.Length != 13)
                 throw new ExcepcionReglaDeNegocio("Debe ingresar un número de identificación válido");

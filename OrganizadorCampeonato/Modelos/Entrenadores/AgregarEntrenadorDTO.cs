@@ -2,7 +2,7 @@
 
 namespace OrganizadorCampeonato.Modelos.Jugadores
 {
-    public record AgregarJugadorDTO
+    public record AgregarEntrenadorDTO
     {
         public required string Identificacion { get; set; }
         public required string Nombres { get; set; }

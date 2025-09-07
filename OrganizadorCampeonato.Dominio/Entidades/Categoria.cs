@@ -17,8 +17,8 @@ namespace OrganizadorCampeonato.Dominio.Entidades
             Genero = genero;
         }
 
-        public TipoCategoria Tipo { get; set; }
-        public TipoGenero Genero { get; set; }
-        public List<Torneo> Torneos { get; set; }
+        public TipoCategoria Tipo { get; private set; }
+        public TipoGenero Genero { get; private set; }
+        public List<Torneo> Torneos { get; private set; }
     }
 }

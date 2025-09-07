@@ -1,4 +1,5 @@
 ﻿using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
+using OrganizadorCampeonato.Dominio.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Jugadores.Comandos.Agregar
         public required string Apellidos { get; set; }
         public DateTime FechaNaciemiento { get; set; }
         public string? Telefono { get; set; }
+        public required TipoGenero Genero { get; set; }
     }
 }

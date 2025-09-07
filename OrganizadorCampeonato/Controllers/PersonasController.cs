@@ -5,6 +5,7 @@ using OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Comandos.AgregarPerso
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.ObtenerPorId;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.ObtenerTodos;
 using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
+using OrganizadorCampeonato.Dominio.Enum;
 using OrganizadorCampeonato.Modelos.Personas;
 using System.Threading.Tasks;
 
@@ -51,7 +52,8 @@ namespace OrganizadorCampeonato.Controllers
                 Nombres = value.Nombres,
                 Apellidos = value.Apellidos,
                 FechaNaciemiento = value.FechaNacimiento,
-                Telefono = value.Telefono
+                Telefono = value.Telefono,
+                Genero = value.Genero,
             };
             var resultado = await mediator.Send(comando);
             return resultado;
@@ -68,6 +70,7 @@ namespace OrganizadorCampeonato.Controllers
                 Nombres = personaDto.Nombres,
                 Apellidos = personaDto.Apellidos,
                 Telefono = personaDto.Telefono,
+                Genero = TipoGenero.Masculino,
                 FechaNaciemiento = personaDto.FechaNacimiento
             };
             await mediator.Send(comando);

@@ -52,6 +52,9 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         {
             if (inicio < fin)
                 throw new ExcepcionReglaDeNegocio("Fecha de incio no puede ser menor que fecha fin");
+
+            if(inicio < DateTime.UtcNow)
+                throw new ExcepcionReglaDeNegocio("Fecha incio no puede ser menor a fecha actual");
         }
     }
 }

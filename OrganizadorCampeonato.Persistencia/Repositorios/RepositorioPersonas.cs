@@ -35,5 +35,13 @@ namespace OrganizadorCampeonato.Persistencia.Repositorios
 
             return persona?.Jugador != null;
         }
+
+        public async Task<bool> PersonaComoEntrenador(string identificacion)
+        {
+            var persona = await context.Personas.Include(x => x.Entrenador)
+                .FirstOrDefaultAsync(x => x.Identificacion.Equals(identificacion));
+
+            return persona?.Jugador != null;
+        }
     }
 }

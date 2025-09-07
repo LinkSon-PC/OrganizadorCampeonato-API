@@ -6,6 +6,7 @@ using OrganizadorCampeonato.Aplicacion.Contratos.Persistencia;
 using OrganizadorCampeonato.Aplicacion.Contratos.Repositorios;
 using OrganizadorCampeonato.Aplicacion.Excepciones;
 using OrganizadorCampeonato.Dominio.Entidades;
+using OrganizadorCampeonato.Dominio.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,13 +35,14 @@ namespace OrganizadorCampeonato.Tests.Aplicacion.CasoDeUso.Personas
         [TestMethod]
         public async Task Handle_Exitoso()
         {
-            var persona = new Persona("1112223334445", "Nombre A", "Apellido 2", DateTime.UtcNow, "22223333");
+            var persona = new Persona("1112223334445", "Nombre A", "Apellido 2", DateTime.UtcNow, "22223333", TipoGenero.Masculino);
             var comando = new ComandoActualizarPersona
             {
                 Id = persona.Id,
                 Identificacion = "1112223334445",
                 Nombres = "Nombre A",
                 Apellidos = "Apellido 2",
+                Genero = TipoGenero.Masculino,
                 FechaNaciemiento = DateTime.UtcNow,
                 Telefono = "22223333"
             };
@@ -63,6 +65,7 @@ namespace OrganizadorCampeonato.Tests.Aplicacion.CasoDeUso.Personas
                 Identificacion = "1112223334445",
                 Nombres = "Nombre A",
                 Apellidos = "Apellido 2",
+                Genero = TipoGenero.Masculino,
                 FechaNaciemiento = DateTime.UtcNow,
                 Telefono = "22223333"
             };
@@ -75,13 +78,14 @@ namespace OrganizadorCampeonato.Tests.Aplicacion.CasoDeUso.Personas
         [TestMethod]
         public async Task Handle_CuandoHayError_HacemosRollback()
         {
-            var persona = new Persona("1112223334445", "Nombre A", "Apellido 2", DateTime.UtcNow, "22223333");
+            var persona = new Persona("1112223334445", "Nombre A", "Apellido 2", DateTime.UtcNow, "22223333", TipoGenero.Masculino);
             var comando = new ComandoActualizarPersona
             {
                 Id = persona.Id,
                 Identificacion = "1112223334445",
                 Nombres = "Nombre A",
                 Apellidos = "Apellido 2",
+                Genero = TipoGenero.Masculino,
                 FechaNaciemiento = DateTime.UtcNow,
                 Telefono = "22223333"
             };

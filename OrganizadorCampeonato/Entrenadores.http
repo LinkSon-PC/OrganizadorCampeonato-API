@@ -1,0 +1,20 @@
+@OrganizadorCampeonato_HostAddress = http://localhost:5133/api/entrenadores
+
+GET {{OrganizadorCampeonato_HostAddress}}
+Accept: application/json
+Content-Type: application/json
+
+###
+
+POST {{OrganizadorCampeonato_HostAddress}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "identificacion": "1112223334335",
+  "nombres": "Entenador Julio",
+  "apellidos": "Entrenador Salazar",
+  "genero": 0,
+  "fechaNaciemiento": "1983-10-27T14:00:00",
+  "telefono": "55553333"
+}

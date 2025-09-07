@@ -5,7 +5,7 @@ Accept: application/json
 
 ###
 
-GET {{OrganizadorCampeonato_HostAddress}}/01990cca-75d4-7dda-aac3-9ee098242899
+GET {{OrganizadorCampeonato_HostAddress}}/01992283-fb9c-77f6-b92a-6919208bd857
 Accept: application/json
 
 ###
@@ -18,20 +18,22 @@ Content-Type: application/json
   "identificacion": "1112223334442",
   "nombres": "Fernando",
   "apellidos": "Mux",
+  "genero": 0,
   "fechaNacimiento": "2000-06-01T14:00:00",
   "telefono": "22224444"
 }
 
 ###
 
-PUT {{OrganizadorCampeonato_HostAddress}}/01990cca-75d4-7dda-aac3-9ee098242899
+PUT {{OrganizadorCampeonato_HostAddress}}/01992283-fb9c-77f6-b92a-6919208bd857
 Accept: application/json
 Content-Type: application/json
 
 {
-  "identificacion": "1112223334442",
-  "nombres": "Fernando",
-  "apellidos": "Mux",
-  "fechaNacimiento": "2000-06-01T14:00:00",
-  "telefono": ""
+  "identificacion": "1112223334445",
+  "nombres": "Jugador Nombre",
+  "apellidos": "Jugador Apellido",
+  "genero": 0,
+  "fechaNaciemiento": "0001-01-01T00:00:00",
+  "telefono": "55553333"
 }

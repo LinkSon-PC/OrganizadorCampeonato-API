@@ -34,7 +34,8 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Comandos.AgregarP
                 request.Nombres, 
                 request.Apellidos, 
                 request.FechaNaciemiento, 
-                request.Telefono
+                request.Telefono!,
+                request.Genero
             );
 
             try

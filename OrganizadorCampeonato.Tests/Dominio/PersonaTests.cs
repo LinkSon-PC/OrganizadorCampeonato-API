@@ -1,4 +1,5 @@
 ﻿using OrganizadorCampeonato.Dominio.Entidades;
+using OrganizadorCampeonato.Dominio.Enum;
 using OrganizadorCampeonato.Dominio.Excepciones;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace OrganizadorCampeonato.Tests.Dominio
         [TestMethod]
         public void CrearPersona_Exitoso()
         {
-            var persona = new Persona("1112223334445","Nombre A","Apellido 2", DateTime.UtcNow, "22223333");
+            var persona = new Persona("1112223334445","Nombre A","Apellido 2", DateTime.UtcNow, "22223333", TipoGenero.Masculino);
 
             Assert.IsNotNull(persona);
             Assert.IsNotNull(persona.Id);
@@ -26,14 +27,14 @@ namespace OrganizadorCampeonato.Tests.Dominio
         [ExpectedException(typeof(ExcepcionReglaDeNegocio))]  
         public void CrearPersona_LanzaExcepcionValidacionIdentificacion()
         {
-            var persona = new Persona("", "Nombre A", "Apellido 2", DateTime.UtcNow, "22223333");
+            var persona = new Persona("", "Nombre A", "Apellido 2", DateTime.UtcNow, "22223333", TipoGenero.Masculino);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ExcepcionReglaDeNegocio))]
         public void CrearPersona_LanzaExcepcionValidacionTelefono()
         {
-            var persona = new Persona("1112223334445", "Nombre A", "Apellido 2", DateTime.UtcNow, "222a23333");
+            var persona = new Persona("1112223334445", "Nombre A", "Apellido 2", DateTime.UtcNow, "222a23333", TipoGenero.Masculino);
         }
     }
 }
