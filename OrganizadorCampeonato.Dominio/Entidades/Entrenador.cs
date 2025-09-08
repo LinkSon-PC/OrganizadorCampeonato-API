@@ -16,6 +16,6 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         }
 
         public Persona Persona { get; private set; } = null!;
-        public List<Equipo>? Equipos { get; private set; }
+        public List<Equipo> Equipos { get; private set; } = null!;
     }
 }

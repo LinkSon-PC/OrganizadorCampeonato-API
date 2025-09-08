@@ -16,6 +16,7 @@ namespace OrganizadorCampeonato.Persistencia.Configuraciones
             builder.HasMany<Equipo>(e => e.Equipos)
                 .WithOne(ep => ep.Entrenador)
                 .HasForeignKey(e => e.EntrenadorId)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }

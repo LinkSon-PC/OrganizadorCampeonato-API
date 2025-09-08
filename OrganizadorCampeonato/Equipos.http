@@ -1,0 +1,33 @@
+@OrganizadorCampeonato_HostAddress = http://localhost:5133/api/equipos
+
+GET {{OrganizadorCampeonato_HostAddress}}
+Accept: application/json
+Content-Type: application/json
+
+###
+
+GET {{OrganizadorCampeonato_HostAddress}}/fc4bb7ac-c8ed-417a-4da6-08ddee4a9e88
+Accept: application/json
+Content-Type: application/json
+
+###
+
+POST {{OrganizadorCampeonato_HostAddress}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "nombre": "Equipo 3",
+  "entrenadorId" : "0199228d-689d-7780-a264-809961d75a03"
+}
+
+###
+
+PUT {{OrganizadorCampeonato_HostAddress}}/975b062f-b82f-4406-e3a5-08ddee934c15
+Accept: application/json
+Content-Type: application/json
+
+{
+  "nombre": "Equipo 4 - actualizado",
+  "entrenadorId": "0199228b-7f64-7e17-85f3-2535c9548131"
+}

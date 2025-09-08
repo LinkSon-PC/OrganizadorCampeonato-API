@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OrganizadorCampeonato.Persistencia;
 
@@ -11,9 +12,11 @@ using OrganizadorCampeonato.Persistencia;
 namespace OrganizadorCampeonato.Persistencia.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250907195120_opcionalEntrenadorTablaEquipo")]
+    partial class opcionalEntrenadorTablaEquipo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +51,7 @@ namespace OrganizadorCampeonato.Persistencia.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categorias", (string)null);
+                    b.ToTable("Categorias");
                 });
 
             modelBuilder.Entity("OrganizadorCampeonato.Dominio.Entidades.Entrenador", b =>
@@ -70,7 +73,7 @@ namespace OrganizadorCampeonato.Persistencia.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Entrenadores", (string)null);
+                    b.ToTable("Entrenadores");
                 });
 
             modelBuilder.Entity("OrganizadorCampeonato.Dominio.Entidades.Equipo", b =>
@@ -103,7 +106,7 @@ namespace OrganizadorCampeonato.Persistencia.Migrations
 
                     b.HasIndex("EntrenadorId");
 
-                    b.ToTable("Equipos", (string)null);
+                    b.ToTable("Equipos");
                 });
 
             modelBuilder.Entity("OrganizadorCampeonato.Dominio.Entidades.Jugador", b =>
@@ -125,7 +128,7 @@ namespace OrganizadorCampeonato.Persistencia.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Jugadores", (string)null);
+                    b.ToTable("Jugadores");
                 });
 
             modelBuilder.Entity("OrganizadorCampeonato.Dominio.Entidades.Persona", b =>
@@ -173,7 +176,7 @@ namespace OrganizadorCampeonato.Persistencia.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Personas", (string)null);
+                    b.ToTable("Personas");
                 });
 
             modelBuilder.Entity("OrganizadorCampeonato.Dominio.Entidades.Torneo", b =>
@@ -222,7 +225,7 @@ namespace OrganizadorCampeonato.Persistencia.Migrations
 
                     b.HasIndex("CategoriaId");
 
-                    b.ToTable("Torneo", (string)null);
+                    b.ToTable("Torneo");
                 });
 
             modelBuilder.Entity("OrganizadorCampeonato.Dominio.Entidades.TorneoEquipo", b =>
@@ -253,7 +256,7 @@ namespace OrganizadorCampeonato.Persistencia.Migrations
 
                     b.HasIndex("TorneoId");
 
-                    b.ToTable("TorneoEquipo", (string)null);
+                    b.ToTable("TorneoEquipo");
                 });
 
             modelBuilder.Entity("OrganizadorCampeonato.Dominio.Entidades.Entrenador", b =>

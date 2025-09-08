@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OrganizadorCampeonato.Dominio.Entidades;
+using OrganizadorCampeonato.Persistencia.Conversores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
