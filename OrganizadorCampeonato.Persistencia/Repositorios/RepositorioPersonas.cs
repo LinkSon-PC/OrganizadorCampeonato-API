@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.ObtenerTodos;
 using OrganizadorCampeonato.Aplicacion.Contratos.Repositorios;
 using OrganizadorCampeonato.Dominio.Entidades;
+using OrganizadorCampeonato.Persistencia.Paginado;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +44,27 @@ namespace OrganizadorCampeonato.Persistencia.Repositorios
                 .FirstOrDefaultAsync(x => x.Identificacion.Equals(identificacion));
 
             return persona?.Jugador != null;
+        }
+
+        public async Task<IEnumerable<Persona>> ObtenerPaginado(PersonaPaginacionDTO paginado)
+        {
+            var query = context.Personas.AsQueryable();
+
+            if(!string.IsNullOrWhiteSpace(paginado.Identificacion))
+                query = query.Where(p => p.Identificacion == paginado.Identificacion);
+
+            if(!string.IsNullOrWhiteSpace(paginado.Nombres))
+                query = query.Where(p => p.Nombres.Contains(paginado.Nombres));
+
+            if(!string.IsNullOrWhiteSpace(paginado.Apellidos))
+                query = query.Where(p => p.Apellidos.Contains(paginado.Apellidos));
+
+            if (!string.IsNullOrWhiteSpace(paginado.Telefono))
+                query = query.Where(p => p.Telefono != null && p.Telefono.Contains(paginado.Telefono));
+
+            return await query
+                .Paginado(paginado.PageNumber, paginado.PageSize)
+                .ToListAsync();
         }
     }
 }

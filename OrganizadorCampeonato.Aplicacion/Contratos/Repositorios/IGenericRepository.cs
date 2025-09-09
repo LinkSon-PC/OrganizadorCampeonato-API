@@ -15,5 +15,6 @@ namespace OrganizadorCampeonato.Aplicacion.Contratos.Repositorios
         Task<IQueryable<T>> ObtenerTodos();
         Task Actualizar(T entidad);
         Task Borrar(T entidad);
+        Task<int> ObtenerTotalRegistros();
     }
 }

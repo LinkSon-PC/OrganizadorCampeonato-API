@@ -1,5 +1,7 @@
-﻿using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
+﻿using OrganizadorCampeonato.Aplicacion.Comunes.Dtos;
+using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
 using OrganizadorCampeonato.Aplicacion.Contratos.Repositorios;
+using OrganizadorCampeonato.Dominio.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.ObtenerTodos
 {
-    public class CasoDeUsoObtenerTodosPersonas : IRequestHandler<ConsultaObtenerTodosPersonas, List<ListadoPersonasDTO>>
+    public class CasoDeUsoObtenerTodosPersonas : IRequestHandler<ConsultaObtenerTodosPersonas, PaginadoDTO<ListadoPersonasDTO>>
     {
         private readonly IRepositorioPersona repositorio;
 
@@ -17,10 +19,17 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.Obtener
             this.repositorio = repositorio;
         }
 
-        public Task<List<ListadoPersonasDTO>> Handle(ConsultaObtenerTodosPersonas request)
+        public async Task<PaginadoDTO<ListadoPersonasDTO>> Handle(ConsultaObtenerTodosPersonas request)
         {
-            var personas = repositorio.ObtenerTodos().Result.Select(x => x.ADto()).ToList();
-            return Task.FromResult(personas);
+            var total = await repositorio.ObtenerTotalRegistros();
+            var personasDto = await repositorio.ObtenerPaginado(request);
+            var respuesta = personasDto.Select(p => p.ADto()).ToList();
+
+            return new PaginadoDTO<ListadoPersonasDTO>
+            {
+                Total = total,
+                Elementos = respuesta
+            };
         }
     }
 }

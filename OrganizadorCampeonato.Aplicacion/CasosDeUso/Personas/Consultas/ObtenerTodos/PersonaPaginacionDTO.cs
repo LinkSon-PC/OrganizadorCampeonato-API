@@ -1,5 +1,4 @@
 ﻿using OrganizadorCampeonato.Aplicacion.Comunes.Dtos;
-using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.ObtenerTodos
 {
-    public record ConsultaObtenerTodosPersonas : PersonaPaginacionDTO, IRequest<PaginadoDTO<ListadoPersonasDTO>>
+    public record PersonaPaginacionDTO : PaginacionDTO
     {
+        public string? Identificacion { get; init; }
+        public string? Nombres { get; init; }
+        public string? Apellidos { get; init; }
+        public string? Telefono {  get; init; }
     }
 }

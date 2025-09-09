@@ -26,11 +26,11 @@ namespace OrganizadorCampeonato.Controllers
 
         // GET: api/<PersonasController>
         [HttpGet]
-        public async Task<ActionResult<List<ListadoPersonasDTO>>> Get()
+        public async Task<ActionResult<List<ListadoPersonasDTO>>> Get([FromQuery] ConsultaObtenerTodosPersonas consulta)
         {
-            var consulta = new ConsultaObtenerTodosPersonas();
             var resultado = await mediator.Send(consulta);
-            return resultado;
+            HttpContext.Response.Headers.Append("X-Total-count", resultado.Total.ToString());
+            return resultado.Elementos;
         }
 
         // GET api/<PersonasController>/5

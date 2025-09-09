@@ -47,5 +47,11 @@ namespace OrganizadorCampeonato.Persistencia.Repositorios
             var query = context.Set<T>().AsQueryable();
             return Task.FromResult(query);
         }
+
+        public async Task<int> ObtenerTotalRegistros()
+        {
+            var total = await context.Set<T>().CountAsync();
+            return total;
+        }
     }
 }

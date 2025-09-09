@@ -11,9 +11,10 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "identificacion": "1112223334441",
-  "nombres": "Anthony",
-  "apellidos": "Son",
-  "fechaNaciemiento": "2000-06-01T14:00:00",
+  "identificacion": "1112223334420",
+  "nombres": "Juagador 2e",
+  "apellidos": "Apellido 2e",
+  "genero": 0,
+  "fechaNaciemiento": "2000-06-10T14:00:00",
   "telefono": "22224444"
 }
