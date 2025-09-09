@@ -12,6 +12,9 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.Obtener
         public string? Identificacion { get; init; }
         public string? Nombres { get; init; }
         public string? Apellidos { get; init; }
-        public string? Telefono {  get; init; }
+        public string? Telefono { get; init; }
+        public bool? EsJugador { get; init; } = false;
+        public bool? EsEntrenador { get; init; } = false;
+        public bool? EsArbitro { get; init; } = false;
     }
 }

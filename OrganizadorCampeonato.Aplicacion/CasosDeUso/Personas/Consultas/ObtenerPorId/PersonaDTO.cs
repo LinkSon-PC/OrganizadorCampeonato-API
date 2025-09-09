@@ -13,7 +13,7 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.Obtener
         public required string Identificacion { get; set; }
         public required string Nombres { get; set; }
         public required string Apellidos { get; set; }
-        public required TipoGenero Genero { get; set; }
+        public required string Genero { get; set; }
         public DateTime FechaNaciemiento { get; set; }
         public string? Telefono { get; set; }
     }

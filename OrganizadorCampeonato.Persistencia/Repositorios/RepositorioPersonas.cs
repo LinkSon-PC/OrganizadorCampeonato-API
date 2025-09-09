@@ -62,6 +62,12 @@ namespace OrganizadorCampeonato.Persistencia.Repositorios
             if (!string.IsNullOrWhiteSpace(paginado.Telefono))
                 query = query.Where(p => p.Telefono != null && p.Telefono.Contains(paginado.Telefono));
 
+            if (paginado.EsJugador ?? false)
+                query = query.Include(p => p.Jugador).Where(p => p.Jugador != null);
+
+            if (paginado.EsEntrenador ?? false)
+                query = query.Include(p => p.Entrenador).Where(p => p.Entrenador != null);
+
             return await query
                 .Paginado(paginado.PageNumber, paginado.PageSize)
                 .ToListAsync();

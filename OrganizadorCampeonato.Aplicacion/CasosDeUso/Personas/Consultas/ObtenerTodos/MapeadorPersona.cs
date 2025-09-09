@@ -18,6 +18,7 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.Obtener
                 Apellidos = persona.Apellidos,
                 Identificacion = persona.Identificacion,
                 FechaNaciemiento = persona.FechaNacimiento,
+                Genero = persona.Genero.ToString(),
                 Telefono = persona.Telefono
             };
         }
