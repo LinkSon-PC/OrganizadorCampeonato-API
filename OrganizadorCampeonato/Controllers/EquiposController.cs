@@ -43,7 +43,8 @@ namespace OrganizadorCampeonato.Controllers
             var comando = new ComandoAgregarEquipo
             {
                 Nombre = request.Nombre,
-                EntrenadorId = request.EntrenadorId
+                EntrenadorId = request.EntrenadorId,
+                CategoriaId = request.CategoriaId
             };
 
             var id = await mediator.Send(comando);
@@ -57,7 +58,8 @@ namespace OrganizadorCampeonato.Controllers
             {
                 Id = id,
                 Nombre = request.Nombre,
-                EntrenadorId = request.EntrenadorId
+                EntrenadorId = request.EntrenadorId,
+                CategoriaId = request.CategoriaId
             };
 
             await mediator.Send(comando);

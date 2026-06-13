@@ -16,6 +16,13 @@ namespace OrganizadorCampeonato.Persistencia.Configuraciones
             builder.Property(p => p.Nombre)
                 .IsRequired()
                 .HasMaxLength(150);
+
+            builder.Property(p => p.Lugar)
+                .IsRequired()
+                .HasMaxLength(150);
+
+            builder.Property(p => p.Descripcion)
+                .HasMaxLength(250);
         }
     }
 }

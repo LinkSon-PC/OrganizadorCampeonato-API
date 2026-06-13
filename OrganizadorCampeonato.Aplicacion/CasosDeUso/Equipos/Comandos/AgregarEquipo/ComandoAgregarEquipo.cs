@@ -1,4 +1,5 @@
 ﻿using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
+using OrganizadorCampeonato.Dominio.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Equipos.Comandos.AgregarEq
     {
         public required string Nombre { get; init; }
         public Guid? EntrenadorId { get; init; }
+        public Guid? CategoriaId { get; init; }
     }
 }

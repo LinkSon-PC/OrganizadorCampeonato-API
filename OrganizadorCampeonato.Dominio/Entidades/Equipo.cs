@@ -11,16 +11,18 @@ namespace OrganizadorCampeonato.Dominio.Entidades
     public class Equipo : EntidadAuditable<Guid>
     {
         public Equipo() { }
-        public Equipo(string nombre, Guid? entrenadorId)
+        public Equipo(string nombre, Guid? entrenadorId, Guid? categoriaId)
         {
             ValidarNombre(nombre);
 
             Nombre = nombre;
             EntrenadorId = entrenadorId;
+            CategoriaId = categoriaId;
         }
 
         public string Nombre { get; private set; }
-        public Guid? EntrenadorId { get; private set; } = null!;
+        public Guid? EntrenadorId { get; private set; }
+        public Guid? CategoriaId { get; private set; }
         public Entrenador? Entrenador { get; private set; } = null!;
         public List<TorneoEquipo> TorneoEquipo { get; private set; } = null!;
 
@@ -39,6 +41,10 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         public void ActualizarEntrenadorId(Guid? entrenadorId)
         {
             EntrenadorId = entrenadorId;
+        }
+        public void ActualizarCategoria(Guid? categoriaId)
+        {
+            CategoriaId = categoriaId;
         }
     }
 }

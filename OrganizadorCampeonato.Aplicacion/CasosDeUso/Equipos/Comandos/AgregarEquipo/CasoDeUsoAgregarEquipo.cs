@@ -23,7 +23,7 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Equipos.Comandos.AgregarEq
 
         public async Task<Guid> Handle(ComandoAgregarEquipo request)
         {
-            var equipo = new Equipo(request.Nombre, request.EntrenadorId);
+            var equipo = new Equipo(request.Nombre, request.EntrenadorId, request.CategoriaId );
 
             try
             {

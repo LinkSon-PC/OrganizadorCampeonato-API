@@ -41,6 +41,7 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Equipos.Comandos.Actualiza
 
             equipo.ActualizarNombre(request.Nombre);
             equipo.ActualizarEntrenadorId(request.EntrenadorId);
+            equipo.ActualizarCategoria(request.CategoriaId);
 
             try
             {

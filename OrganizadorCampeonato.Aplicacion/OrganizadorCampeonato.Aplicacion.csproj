@@ -15,4 +15,8 @@
     <PackageReference Include="Scrutor" Version="6.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CasosDeUso\Torneos\Consultas\ConsultarTorneos\" />
+  </ItemGroup>
+
 </Project>
