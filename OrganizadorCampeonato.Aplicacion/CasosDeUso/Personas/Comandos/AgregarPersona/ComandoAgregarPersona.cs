@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Comandos.AgregarPersona
 {
-    public class ComandoAgregarPersona : IRequest<Guid>
+    public record ComandoAgregarPersona : IRequest<Guid>
     {
-        public required string Identificacion { get; set; }
-        public required string Nombres { get; set; }
-        public required string Apellidos { get; set; }
-        public DateTime FechaNaciemiento { get; set; }
-        public string? Telefono { get; set; }
-        public required TipoGenero Genero { get; set; }
+        public required string Identificacion { get; init; }
+        public required string Nombres { get; init; }
+        public required string Apellidos { get; init; }
+        public DateTime FechaNaciemiento { get; init; }
+        public string? Telefono { get; init; }
+        public required TipoGenero Genero { get; init; }
     }
 }

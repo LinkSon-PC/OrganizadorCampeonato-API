@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Jugadores.Comandos.AsignarJugado
 {
-    public class ComandoAsiganarJugador : IRequest
+    public record ComandoAsiganarJugador : IRequest
     {
-        public required string Identificacion { get; set; }
+        public required string Identificacion { get; init; }
     }
 }

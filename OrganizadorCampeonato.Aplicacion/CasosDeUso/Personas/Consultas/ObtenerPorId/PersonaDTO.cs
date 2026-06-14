@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.ObtenerPorId
 {
-    public class PersonaDTO
+    public record PersonaDTO
     {
-        public Guid Id { get; set; }
-        public required string Identificacion { get; set; }
-        public required string Nombres { get; set; }
-        public required string Apellidos { get; set; }
-        public required string Genero { get; set; }
-        public DateTime FechaNaciemiento { get; set; }
-        public string? Telefono { get; set; }
+        public Guid Id { get; init; }
+        public required string Identificacion { get; init; }
+        public required string Nombres { get; init; }
+        public required string Apellidos { get; init; }
+        public required string Genero { get; init; }
+        public DateTime FechaNaciemiento { get; init; }
+        public string? Telefono { get; init; }
     }
 }

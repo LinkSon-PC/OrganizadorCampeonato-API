@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Torneos.Comandos.ActualizarTorneos
 {
-    public class ComandoActualizarTorneo
+    public record ComandoActualizarTorneo
     {
         public required Guid Id { get; init; }
         public required string Nombre { get; init; }

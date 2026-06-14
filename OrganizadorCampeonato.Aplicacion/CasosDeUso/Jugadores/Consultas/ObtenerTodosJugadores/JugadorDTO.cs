@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Jugadores.Consultas.ObtenerTodosJugadores
 {
-    public class JugadorDTO
+    public record JugadorDTO
     {
-        public Guid Id { get; set; }
-        public string Identificacion { get; set; }
-        public string Nombres { get; set; }
-        public string Apellidos { get; set; }
-        public DateTime FechaNaciemiento { get; set; }
-        public string Telefono { get; set; }
+        public Guid Id { get; init; }
+        public string Identificacion { get; init; }
+        public string Nombres { get; init; }
+        public string Apellidos { get; init; }
+        public DateTime FechaNaciemiento { get; init; }
+        public string Telefono { get; init; }
     }
 }

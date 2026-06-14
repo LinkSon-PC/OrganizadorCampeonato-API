@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.ObtenerPorId
 {
-    public class ConsultaObtenerPersonaPorId : IRequest<PersonaDTO>
+    public record ConsultaObtenerPersonaPorId : IRequest<PersonaDTO>
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; init; }
     }
 }

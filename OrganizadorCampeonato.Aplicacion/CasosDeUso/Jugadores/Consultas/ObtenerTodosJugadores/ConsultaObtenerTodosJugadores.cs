@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Jugadores.Consultas.ObtenerTodosJugadores
 {
-    public class ConsultaObtenerTodosJugadores : IRequest<List<JugadorDTO>>
+    public record ConsultaObtenerTodosJugadores : IRequest<List<JugadorDTO>>
     {
     }
 }

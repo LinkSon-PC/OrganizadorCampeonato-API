@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Comandos.ActualizarPersona
 {
-    public class ComandoActualizarPersona : IRequest
+    public record ComandoActualizarPersona : IRequest
     {
-        public required Guid Id { get; set; }
-        public required string Identificacion { get; set; }
-        public required string Nombres { get; set; }
-        public required string Apellidos { get; set; }
-        public required TipoGenero Genero { get; set; }
-        public DateTime FechaNaciemiento { get; set; }
-        public string? Telefono { get; set; }
+        public required Guid Id { get; init; }
+        public required string Identificacion { get; init; }
+        public required string Nombres { get; init; }
+        public required string Apellidos { get; init; }
+        public required TipoGenero Genero { get; init; }
+        public DateTime FechaNaciemiento { get; init; }
+        public string? Telefono { get; init; }
     }
 }

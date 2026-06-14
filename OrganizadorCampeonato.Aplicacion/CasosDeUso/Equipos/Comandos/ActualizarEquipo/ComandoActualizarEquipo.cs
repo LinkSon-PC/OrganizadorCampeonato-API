@@ -10,7 +10,7 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Equipos.Comandos.Actualiza
 {
     public record ComandoActualizarEquipo : IRequest
     {
-        public required Guid Id { get; set; }
+        public required Guid Id { get; init; }
         public required string Nombre { get; init; }
         public Guid? EntrenadorId { get; init; }
         public Guid? CategoriaId { get; init; }
