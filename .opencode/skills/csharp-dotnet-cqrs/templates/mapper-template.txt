@@ -1,0 +1,113 @@
+// Mapper Template - Static Extension Methods
+// Replace <EntityName> with actual entity name (PascalCase, singular)
+// Replace <properties> with actual mapping logic
+
+using OrganizadorCampeonato.Dominio.Entidades;
+using System;
+
+namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.<EntityName>.Consultas;
+
+// ============================================================================
+// LIST MAPPER (for get-all queries)
+// ============================================================================
+public static class Mapeador<Listado<EntityName>
+{
+    public static Listado<EntityName>DTO ADto(this <EntityName> entity) => new()
+    {
+        Id = entity.Id,
+        Nombre = entity.Nombre,
+        RelatedNombre = entity.Related?.Nombre,
+        Estado = entity.Estado,
+        FechaCreacion = entity.FechaCreacion
+    };
+}
+
+// ============================================================================
+// SINGLE ENTITY MAPPER (for get-by-id queries)
+// ============================================================================
+public static class Mapeador<EntityName>
+{
+    public static <EntityName>DTO ADto(this <EntityName> entity) => new()
+    {
+        Id = entity.Id,
+        Nombre = entity.Nombre,
+        RelatedId = entity.RelatedId,
+        RelatedNombre = entity.Related?.Nombre,
+        Estado = entity.Estado,
+        FechaCreacion = entity.FechaCreacion,
+        FechaModificacion = entity.FechaModificacion
+    };
+}
+
+// ============================================================================
+// EXAMPLES FROM PROJECT
+// ============================================================================
+
+// --- LIST MAPPER (like MapeadorListadoEquipos) ---
+/*
+public static class MapeadorListadoEquipos
+{
+    public static ListadoEquiposDTO ADto(this Equipo equipo) => new()
+    {
+        Id = equipo.Id,
+        Nombre = equipo.Nombre,
+        EntrenadorId = equipo.EntrenadorId,
+        NombresEntrenador = equipo.Entrenador?.Persona?.Nombres,
+        ApellidosEntrenador = equipo.Entrenador?.Persona?.Apellidos
+    };
+}
+*/
+
+// --- SINGLE ENTITY MAPPER (like MapeadorPersona) ---
+/*
+public static class MapeadorPersona
+{
+    public static PersonaDTO ADto(this Persona persona) => new()
+    {
+        Id = persona.Id,
+        Identificacion = persona.Identificacion,
+        Nombres = persona.Nombres,
+        Apellidos = persona.Apellidos,
+        FechaNacimiento = persona.FechaNacimiento,
+        Genero = persona.Genero,
+        Telefono = persona.Telefono,
+        EsJugador = persona.Jugador is not null,
+        EsEntrenador = persona.Entrenador is not null
+    };
+}
+*/
+
+// --- MAPPER WITH ENUM CONVERSION ---
+/*
+public static class MapeadorJugador
+{
+    public static JugadorDTO ADto(this Jugador jugador) => new()
+    {
+        Id = jugador.Id,
+        Identificacion = jugador.Persona?.Identificacion!,
+        Nombres = jugador.Persona?.Nombres!,
+        Apellidos = jugador.Persona?.Apellidos!,
+        FechaNacimiento = jugador.Persona!.FechaNacimiento,
+        Genero = jugador.Persona.Genero.ToString(),
+        Telefono = jugador.Persona.Telefono
+    };
+}
+*/
+
+// --- MAPPER WITH COMPLEX NAVIGATION ---
+/*
+public static class MapeadorTorneo
+{
+    public static TorneoDTO ADto(this Torneo torneo) => new()
+    {
+        Id = torneo.Id,
+        Nombre = torneo.Nombre,
+        Descripcion = torneo.Descripcion,
+        FechaInicio = torneo.FechaInicio,
+        FechaFin = torneo.FechaFin,
+        Formato = torneo.Formato.ToString(),
+        CategoriaNombre = torneo.Categoria?.Nombre,
+        CantidadEquipos = torneo.TorneoEquipos?.Count ?? 0
+    };
+}
+*/

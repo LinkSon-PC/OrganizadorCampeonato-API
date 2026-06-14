@@ -1,0 +1,145 @@
+// Repository Implementation Template
+// Replace <EntityName> with the actual entity name (PascalCase, singular)
+// Replace <custom_method_implementations> with actual method implementations
+
+using Microsoft.EntityFrameworkCore;
+using OrganizadorCampeonato.Aplicacion.Contratos.Repositorios;
+using OrganizadorCampeonato.Dominio.Entidades;
+using OrganizadorCampeonato.Persistencia;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace OrganizadorCampeonato.Persistencia.Repositorios
+{
+    public class Repositorio<EntityName> : Repositorio<EntityName, Guid>, IRepositorio<EntityName>
+    {
+        private readonly ApplicationDbContext context;
+
+        public Repositorio<EntityName>(ApplicationDbContext context) : base(context)
+        {
+            this.context = context;
+        }
+
+        <custom_method_implementations>
+    }
+}
+
+// ============================================================================
+// EXAMPLES BY ENTITY TYPE
+// ============================================================================
+
+// --- SIMPLE ENTITY (no custom methods, like RepositorioTorneo) ---
+/*
+public class RepositorioTorneo : Repositorio<Torneo, Guid>, IRepositorioTorneo
+{
+    private readonly ApplicationDbContext context;
+
+    public RepositorioTorneo(ApplicationDbContext context) : base(context)
+    {
+        this.context = context;
+    }
+}
+*/
+
+// --- ENTITY WITH CUSTOM METHODS (like RepositorioPersonas) ---
+/*
+public class RepositorioPersonas : Repositorio<Persona, Guid>, IRepositorioPersona
+{
+    private readonly ApplicationDbContext context;
+
+    public RepositorioPersonas(ApplicationDbContext context) : base(context)
+    {
+        this.context = context;
+    }
+
+    public async Task<bool> IdentificacionYaRegistrada(string identificacion)
+    {
+        return await context.Personas.AnyAsync(x => x.Identificacion.Equals(identificacion));
+    }
+
+    public async Task<Persona?> ObtenerPorIdentificacion(string identificacion)
+    {
+        return await context.Personas.FirstOrDefaultAsync(x => x.Identificacion.Equals(identificacion));
+    }
+
+    public async Task<bool> PersonaComoJugador(string identificacion)
+    {
+        var persona = await context.Personas.Include(x => x.Jugador)
+            .FirstOrDefaultAsync(x => x.Identificacion.Equals(identificacion));
+
+        return persona?.Jugador != null;
+    }
+
+    public async Task<IEnumerable<Persona>> ObtenerPaginado(PersonaPaginacionDTO paginado)
+    {
+        var query = context.Personas.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(paginado.Identificacion))
+            query = query.Where(p => p.Identificacion == paginado.Identificacion);
+
+        if (!string.IsNullOrWhiteSpace(paginado.Nombres))
+            query = query.Where(p => p.Nombres.Contains(paginado.Nombres));
+
+        return await query
+            .Paginado(paginado.PageNumber, paginado.PageSize)
+            .ToListAsync();
+    }
+}
+*/
+
+// --- TPH ENTITY (like RepositorioJugador) ---
+/*
+public class RepositorioJugador : Repositorio<Jugador, Guid>, IRepositorioJugador
+{
+    private readonly ApplicationDbContext context;
+
+    public RepositorioJugador(ApplicationDbContext context) : base(context)
+    {
+        this.context = context;
+    }
+
+    public Task AsignarComoJugador(Guid Id)
+    {
+        context.Add(new Jugador(Id));
+        return Task.CompletedTask;
+    }
+
+    public async Task<IEnumerable<Jugador>> ObtenerTodosJugadores()
+    {
+        return await context.Jugadores.Include(x => x.Persona).ToListAsync();
+    }
+}
+*/
+
+// --- ENTITY WITH INCLUDES (like RepositorioEquipo) ---
+/*
+public class RepositorioEquipo : Repositorio<Equipo, Guid>, IRepositorioEquipo
+{
+    private readonly ApplicationDbContext context;
+
+    public RepositorioEquipo(ApplicationDbContext context) : base(context)
+    {
+        this.context = context;
+    }
+
+    new public Task<IQueryable<Equipo>> ObtenerTodos()
+    {
+        var query = context.Equipos
+            .Include(e => e.Entrenador)
+            .ThenInclude(e => e.Persona)
+            .AsQueryable();
+        return Task.FromResult(query);
+    }
+
+    new public async Task<Equipo?> ObtenerPorId(Guid id)
+    {
+        var equipo = await context.Equipos
+            .Include(e => e.Entrenador)
+            .ThenInclude(e => e.Persona)
+            .FirstOrDefaultAsync(e => id == e.Id);
+        return equipo;
+    }
+}
+*/

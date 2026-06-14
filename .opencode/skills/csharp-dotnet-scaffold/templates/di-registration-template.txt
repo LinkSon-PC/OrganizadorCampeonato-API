@@ -1,0 +1,41 @@
+// DI Registration Template
+// Add this line to RegistroDeServiciosDePersitencia.cs in the AgregarServiciosDePersistencia method
+// Note: the filename has an intentional typo "Persitencia" - do NOT rename it
+
+services.AddScoped<IRepositorio<EntityName>, Repositorio<EntityName>>();
+
+// ============================================================================
+// EXAMPLE: Complete RegistroDeServiciosDePersitencia.cs
+// ============================================================================
+/*
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using OrganizadorCampeonato.Aplicacion.Contratos.Persistencia;
+using OrganizadorCampeonato.Aplicacion.Contratos.Repositorios;
+using OrganizadorCampeonato.Persistencia.Persistencia;
+using OrganizadorCampeonato.Persistencia.Repositorios;
+
+namespace OrganizadorCampeonato.Persistencia
+{
+    public static class RegistroDeServiciosDePersitencia
+    {
+        public static IServiceCollection AgregarServiciosDePersistencia(this IServiceCollection services) 
+        {
+            services.AddDbContext<ApplicationDbContext>(options => 
+                options.UseSqlServer("name=DefaultConnection"));
+
+            services.AddScoped<IUnidadDeTrabajo, UnidadDeTrabajo>();
+            services.AddScoped<IRepositorioPersona, RepositorioPersonas>();
+            services.AddScoped<IRepositorioJugador, RepositorioJugador>();
+            services.AddScoped<IRepositorioEntrenador, RepositorioEntrenador>();
+            services.AddScoped<IRepositorioEquipo, RepositorioEquipo>();
+            services.AddScoped<IRepositorioTorneo, RepositorioTorneo>();
+            
+            // ADD NEW REGISTRATIONS HERE:
+            // services.AddScoped<IRepositorio<EntityName>, Repositorio<EntityName>>();
+
+            return services;
+        }
+    }
+}
+*/

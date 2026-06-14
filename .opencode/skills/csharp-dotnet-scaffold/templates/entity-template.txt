@@ -1,0 +1,161 @@
+// Domain Entity Template
+// Replace <EntityName> with the actual entity name (PascalCase, singular)
+// Replace <constructor_params> with actual constructor parameters
+// Replace <validations> with actual validation calls
+// Replace <assignments> with actual property assignments
+// Replace <scalar_properties> with actual scalar property declarations
+// Replace <navigation_properties> with actual navigation property declarations
+// Replace <validation_methods> with actual private validation methods
+
+using OrganizadorCampeonato.Dominio.Comunes;
+using OrganizadorCampeonato.Dominio.Excepciones;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace OrganizadorCampeonato.Dominio.Entidades
+{
+    public class <EntityName> : EntidadAuditable<Guid>
+    {
+        private <EntityName>() { }
+
+        public <EntityName>(<constructor_params>)
+        {
+            <validations>
+
+            <assignments>
+
+            Id = Guid.CreateVersion7();
+        }
+
+        // Scalar properties (private set)
+        <scalar_properties>
+
+        // Navigation properties
+        <navigation_properties>
+
+        // Private validation methods
+        <validation_methods>
+    }
+}
+
+// ============================================================================
+// EXAMPLES BY ENTITY TYPE
+// ============================================================================
+
+// --- SIMPLE ENTITY (like Categoria) ---
+/*
+public class Categoria : EntidadAuditable<Guid>
+{
+    private Categoria() { }
+    
+    public Categoria(TipoCategoria tipo, TipoGenero genero)
+    {
+        Tipo = tipo;
+        Genero = genero;
+    }
+
+    public TipoCategoria Tipo { get; private set; }
+    public TipoGenero Genero { get; private set; }
+    public List<Torneo> Torneos { get; private set; } = new();
+}
+*/
+
+// --- ENTITY WITH VALIDATION (like Persona) ---
+/*
+public class Persona : EntidadAuditable<Guid>
+{
+    private Persona() { }
+
+    public Persona(string identificacion, string nombres, string apellidos, 
+                   DateTime fechaNacimiento, string telefono, TipoGenero genero)
+    {
+        ValidarNombres(nombres);
+        ValidarApellidos(apellidos);
+        ValidarIdentificacion(identificacion);
+        ValidarTelefono(telefono);
+
+        Identificacion = identificacion;
+        Nombres = nombres;
+        Apellidos = apellidos;
+        FechaNacimiento = fechaNacimiento;
+        Telefono = telefono;
+        Genero = genero;
+
+        Id = Guid.CreateVersion7();
+    }
+
+    public string Identificacion { get; private set; }
+    public string Nombres { get; private set; }
+    public string Apellidos { get; private set; }
+    public DateTime FechaNacimiento { get; private set; }
+    public TipoGenero Genero { get; private set; }
+    public string? Telefono { get; private set; }
+    public Jugador? Jugador { get; private set; } = null!;
+    public Entrenador? Entrenador { get; private set; } = null!;
+
+    private void ValidarNombres(string nombres)
+    {
+        if (string.IsNullOrWhiteSpace(nombres))
+            throw new ExcepcionReglaDeNegocio("El campo Nombres es requerido");
+    }
+
+    private void ValidarApellidos(string apellidos)
+    {
+        if (string.IsNullOrWhiteSpace(apellidos))
+            throw new ExcepcionReglaDeNegocio("El campo Apellidos es requerido");
+    }
+
+    private void ValidarIdentificacion(string identificacion)
+    {
+        if (string.IsNullOrEmpty(identificacion))
+            throw new ExcepcionReglaDeNegocio("El campo Identificacion es requerido");
+
+        if (!long.TryParse(identificacion, out _) || identificacion.Length != 13)
+            throw new ExcepcionReglaDeNegocio("Debe ingresar un numero de identificacion valido");
+    }
+
+    private void ValidarTelefono(string? telefono)
+    {
+        if (string.IsNullOrWhiteSpace(telefono))
+            return;
+
+        if (!uint.TryParse(telefono, out _) || telefono.Length != 8)
+            throw new ExcepcionReglaDeNegocio("Debe ingresar un numero de telefono valido");
+    }
+}
+*/
+
+// --- TPH ENTITY (shared PK with Persona, like Jugador) ---
+/*
+public class Jugador : EntidadAuditable<Guid>
+{
+    private Jugador() { }
+
+    public Jugador(Guid Id)
+    {
+        this.Id = Id;
+    }
+
+    public Persona Persona { get; private set; } = null!;
+}
+*/
+
+// --- JOIN TABLE (like TorneoEquipo) ---
+/*
+public class TorneoEquipo : EntidadAuditable<Guid>
+{
+    private TorneoEquipo() { }
+    
+    public TorneoEquipo(Guid torneoId, Guid equipoId)
+    {
+        TorneoId = torneoId;
+        EquipoId = equipoId;
+    }
+
+    public Guid TorneoId { get; private set; }
+    public Guid EquipoId { get; private set; }
+    public Torneo Torneo { get; private set; } = null!;
+    public Equipo Equipo { get; private set; } = null!;
+}
+*/

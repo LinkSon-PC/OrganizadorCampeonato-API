@@ -1,0 +1,157 @@
+// Entity Configuration Template (Fluent API)
+// Replace <EntityName> with the actual entity name (PascalCase, singular)
+// Replace <scalar_property_configs> with actual property configurations
+// Replace <relationship_configs> with actual relationship configurations
+
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using OrganizadorCampeonato.Dominio.Entidades;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace OrganizadorCampeonato.Persistencia.Configuraciones
+{
+    public class <EntityName>Configuration : IEntityTypeConfiguration<EntityName>
+    {
+        public void Configure(EntityTypeBuilder<EntityName> builder)
+        {
+            <scalar_property_configs>
+
+            <relationship_configs>
+        }
+    }
+}
+
+// ============================================================================
+// EXAMPLES BY ENTITY TYPE
+// ============================================================================
+
+// --- SIMPLE ENTITY (like CategoriaConfiguration) ---
+/*
+public class CategoriaConfiguration : IEntityTypeConfiguration<Categoria>
+{
+    public void Configure(EntityTypeBuilder<Categoria> builder)
+    {
+        builder.HasMany(c => c.Torneos)
+            .WithOne(t => t.Categoria)
+            .HasForeignKey(c => c.CategoriaId)
+            .OnDelete(DeleteBehavior.NoAction);
+    }
+}
+*/
+
+// --- ENTITY WITH SCALAR PROPERTIES (like TorneoConfiguration) ---
+/*
+public class TorneoConfiguration : IEntityTypeConfiguration<Torneo>
+{
+    public void Configure(EntityTypeBuilder<Torneo> builder)
+    {
+        builder.Property(p => p.Nombre)
+            .IsRequired()
+            .HasMaxLength(150);
+
+        builder.Property(p => p.Lugar)
+            .IsRequired()
+            .HasMaxLength(200);
+
+        builder.Property(p => p.Descripcion)
+            .HasMaxLength(250);
+    }
+}
+*/
+
+// --- ENTITY WITH RELATIONSHIPS (like EntrenadorConfiguration) ---
+/*
+public class EntrenadorConfiguration : IEntityTypeConfiguration<Entrenador>
+{
+    public void Configure(EntityTypeBuilder<Entrenador> builder)
+    {
+        builder.HasMany<Equipo>(e => e.Equipos)
+            .WithOne(ep => ep.Entrenador)
+            .HasForeignKey(e => e.EntrenadorId)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.NoAction);
+    }
+}
+*/
+
+// --- JOIN TABLE (like TorneoEquipoConfiguration) ---
+/*
+public class TorneoEquipoConfiguration : IEntityTypeConfiguration<TorneoEquipo>
+{
+    public void Configure(EntityTypeBuilder<TorneoEquipo> builder)
+    {
+        builder.HasOne(x => x.Torneo)
+            .WithMany(t => t.TorneoEquipo)
+            .HasForeignKey(x => x.TorneoId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        builder.HasOne(x => x.Equipo)
+            .WithMany(t => t.TorneoEquipo)
+            .HasForeignKey(x => x.EquipoId)
+            .OnDelete(DeleteBehavior.NoAction);
+    }
+}
+*/
+
+// --- ENTITY WITH UNIQUE INDEX (like PersonaConfiguration) ---
+/*
+public class PersonaConfiguration : IEntityTypeConfiguration<Persona>
+{
+    public void Configure(EntityTypeBuilder<Persona> builder)
+    {
+        builder.Property(x => x.Nombres)
+            .IsRequired()
+            .HasMaxLength(150);
+
+        builder.Property(x => x.Apellidos)
+            .IsRequired()
+            .HasMaxLength(150);
+
+        builder.Property(x => x.Identificacion)
+            .IsRequired()
+            .HasMaxLength(13);
+
+        builder.HasIndex(x => x.Identificacion)
+            .IsUnique();
+
+        builder.Property(x => x.Telefono)
+            .HasMaxLength(8);
+
+        builder.HasOne(p => p.Jugador)
+               .WithOne(j => j.Persona)
+               .HasForeignKey<Jugador>(p => p.Id)
+               .OnDelete(DeleteBehavior.NoAction);
+
+        builder.HasOne(p => p.Entrenador)
+               .WithOne(j => j.Persona)
+               .HasForeignKey<Entrenador>(p => p.Id)
+               .OnDelete(DeleteBehavior.NoAction);
+    }
+}
+*/
+
+// ============================================================================
+// CONFIGURATION RULES
+// ============================================================================
+//
+// SCALAR PROPERTIES:
+// - String required: builder.Property(x => x.Name).IsRequired().HasMaxLength(150);
+// - String optional: builder.Property(x => x.Name).HasMaxLength(150);
+// - Enum: no config needed (stored as int)
+// - DateTime: no config needed (stored as datetime2)
+// - Guid FK: no config needed (stored as uniqueidentifier)
+//
+// RELATIONSHIPS:
+// - One-to-Many: builder.HasMany(x => x.Collection).WithOne(x => x.Parent).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
+// - Many-to-One: builder.HasOne(x => x.Parent).WithMany(x => x.Collection).HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.NoAction);
+// - One-to-One: builder.HasOne(x => x.Related).WithOne(x => x.Parent).HasForeignKey<Related>(x => x.Id).OnDelete(DeleteBehavior.NoAction);
+// - Optional FK: add .IsRequired(false) before .OnDelete()
+//
+// INDEXES:
+// - Unique: builder.HasIndex(x => x.Property).IsUnique();
+// - Non-unique: builder.HasIndex(x => x.Property);
+//
+// ALL RELATIONSHIPS MUST USE DeleteBehavior.NoAction

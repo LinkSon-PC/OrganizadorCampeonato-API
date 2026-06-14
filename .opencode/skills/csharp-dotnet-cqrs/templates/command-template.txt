@@ -1,0 +1,78 @@
+// Command Template - Record Syntax
+// Replace <EntityName> with actual entity name (PascalCase, singular)
+// Replace <Operation> with operation name (Agregar, Actualizar, Eliminar, Asignar)
+// Replace <properties> with actual record parameters
+
+using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
+using System;
+
+namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.<EntityName>.Comandos.<Operation><EntityName>;
+
+// ============================================================================
+// CREATE COMMAND (returns Guid)
+// ============================================================================
+public record Comando<Operation><EntityName>(
+    required string Nombre,
+    Guid? RelatedId,
+    EstadoEnum Estado
+) : IRequest<Guid>;
+
+// ============================================================================
+// UPDATE COMMAND (returns void)
+// ============================================================================
+public record Comando<Operation><EntityName>(
+    Guid Id,
+    required string Nombre,
+    Guid? RelatedId
+) : IRequest;
+
+// ============================================================================
+// DELETE COMMAND (returns void)
+// ============================================================================
+public record Comando<Operation><EntityName>(Guid Id) : IRequest;
+
+// ============================================================================
+// ASSIGN COMMAND (returns void)
+// ============================================================================
+public record Comando<Operation><EntityName>(
+    Guid EntityId,
+    Guid RelatedId
+) : IRequest;
+
+// ============================================================================
+// EXAMPLES FROM PROJECT
+// ============================================================================
+
+// --- CREATE (like ComandoAgregarEntrenador) ---
+/*
+public record ComandoAgregarEntrenador(
+    string Identificacion,
+    string Nombres,
+    string Apellidos,
+    DateTime FechaNacimiento,
+    string? Telefono,
+    TipoGenero Genero
+) : IRequest<Guid>;
+*/
+
+// --- UPDATE (like ComandoActualizarEquipo) ---
+/*
+public record ComandoActualizarEquipo(
+    Guid Id,
+    required string Nombre,
+    Guid? EntrenadorId,
+    Guid? CategoriaId
+) : IRequest;
+*/
+
+// --- DELETE ---
+/*
+public record ComandoEliminarEquipo(Guid Id) : IRequest;
+*/
+
+// --- ASSIGN (like ComandoAsignarEntrenador) ---
+/*
+public record ComandoAsignarEntrenador(
+    string Identificacion
+) : IRequest;
+*/

@@ -1,0 +1,166 @@
+// Handler Query Template
+// Replace <EntityName> with actual entity name (PascalCase, singular)
+// Replace <Operation> with operation name (ObtenerTodos, ObtenerPorId, ObtenerPaginados)
+
+using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
+using OrganizadorCampeonato.Aplicacion.Comunes.Dtos;
+using OrganizadorCampeonato.Aplicacion.Contratos.Repositorios;
+using OrganizadorCampeonato.Aplicacion.Excepciones;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.<EntityName>.Consultas.<Operation><EntityName>;
+
+// ============================================================================
+// GET ALL HANDLER (returns List<DTO>)
+// ============================================================================
+public class CasoDeUso<Operation><EntityName> : IRequestHandler<Consulta<Operation><EntityName>, List<Listado<EntityName>DTO>>
+{
+    private readonly IRepositorio<EntityName> repositorio;
+
+    public CasoDeUso<Operation><EntityName>(IRepositorio<EntityName> repositorio)
+    {
+        this.repositorio = repositorio;
+    }
+
+    public async Task<List<Listado<EntityName>DTO>> Handle(
+        Consulta<Operation><EntityName> request,
+        CancellationToken cancellationToken)
+    {
+        var entities = await repositorio.ObtenerTodos();
+        return entities.Select(x => x.ADto()).ToList();
+    }
+}
+
+// ============================================================================
+// GET BY ID HANDLER (returns single DTO)
+// ============================================================================
+public class CasoDeUso<Operation><EntityName> : IRequestHandler<Consulta<Operation><EntityName>, <EntityName>DTO>
+{
+    private readonly IRepositorio<EntityName> repositorio;
+
+    public CasoDeUso<Operation><EntityName>(IRepositorio<EntityName> repositorio)
+    {
+        this.repositorio = repositorio;
+    }
+
+    public async Task<<EntityName>DTO> Handle(
+        Consulta<Operation><EntityName> request,
+        CancellationToken cancellationToken)
+    {
+        var entity = await repositorio.ObtenerPorId(request.Id);
+        if (entity is null)
+            throw new ExcepcionDeValidacion("No se encontró el registro");
+
+        return entity.ADto();
+    }
+}
+
+// ============================================================================
+// GET PAGINATED HANDLER (returns PaginadoDTO<List<DTO>>)
+// ============================================================================
+public class CasoDeUso<Operation><EntityName> : IRequestHandler<Consulta<Operation><EntityName>, PaginadoDTO<Listado<EntityName>DTO>>
+{
+    private readonly IRepositorio<EntityName> repositorio;
+
+    public CasoDeUso<Operation><EntityName>(IRepositorio<EntityName> repositorio)
+    {
+        this.repositorio = repositorio;
+    }
+
+    public async Task<PaginadoDTO<Listado<EntityName>DTO>> Handle(
+        Consulta<Operation><EntityName> request,
+        CancellationToken cancellationToken)
+    {
+        var (entities, total) = await repositorio.ObtenerPaginado(request.PageNumber, request.PageSize);
+
+        return new PaginadoDTO<Listado<EntityName>DTO>
+        {
+            Items = entities.Select(x => x.ADto()).ToList(),
+            TotalCount = total,
+            PageNumber = request.PageNumber,
+            PageSize = request.PageSize
+        };
+    }
+}
+
+// ============================================================================
+// EXAMPLES FROM PROJECT
+// ============================================================================
+
+// --- GET ALL (like CasoDeUsoObtenerTodosJugadores) ---
+/*
+public class CasoDeUsoObtenerTodosJugadores : IRequestHandler<ConsultaObtenerTodosJugadores, List<JugadorDTO>>
+{
+    private readonly IRepositorioJugador repositorio;
+
+    public CasoDeUsoObtenerTodosJugadores(IRepositorioJugador repositorio)
+    {
+        this.repositorio = repositorio;
+    }
+
+    public async Task<List<JugadorDTO>> Handle(
+        ConsultaObtenerTodosJugadores request,
+        CancellationToken cancellationToken)
+    {
+        var jugadores = await repositorio.ObtenerTodosJugadores();
+        return jugadores.Select(x => x.ADto()).ToList();
+    }
+}
+*/
+
+// --- GET BY ID (like CasoDeUsoObtenerPorId for Persona) ---
+/*
+public class CasoDeUsoObtenerPorId : IRequestHandler<ConsultaObtenerPersonaPorId, PersonaDTO>
+{
+    private readonly IRepositorioPersona repositorio;
+
+    public CasoDeUsoObtenerPorId(IRepositorioPersona repositorio)
+    {
+        this.repositorio = repositorio;
+    }
+
+    public async Task<PersonaDTO> Handle(
+        ConsultaObtenerPersonaPorId request,
+        CancellationToken cancellationToken)
+    {
+        var persona = await repositorio.ObtenerPorId(request.Id);
+        if (persona is null)
+            throw new ExcepcionDeValidacion("No se encontró la persona");
+
+        return persona.ADto();
+    }
+}
+*/
+
+// --- GET ALL WITH PAGINATION (like CasoDeUsoObtenerTodosPersonas) ---
+/*
+public class CasoDeUsoObtenerTodosPersonas : IRequestHandler<ConsultaObtenerTodosPersonas, PaginadoDTO<ListadoPersonasDTO>>
+{
+    private readonly IRepositorioPersona repositorio;
+
+    public CasoDeUsoObtenerTodosPersonas(IRepositorioPersona repositorio)
+    {
+        this.repositorio = repositorio;
+    }
+
+    public async Task<PaginadoDTO<ListadoPersonasDTO>> Handle(
+        ConsultaObtenerTodosPersonas request,
+        CancellationToken cancellationToken)
+    {
+        var personas = await repositorio.ObtenerPaginado(request);
+        var dtos = personas.Select(p => p.ADto()).ToList();
+
+        return new PaginadoDTO<ListadoPersonasDTO>
+        {
+            Items = dtos,
+            TotalCount = await repositorio.ObtenerTotalRegistros(),
+            PageNumber = request.PageNumber,
+            PageSize = request.PageSize
+        };
+    }
+}
+*/

@@ -1,0 +1,103 @@
+// DTO Template - Record Syntax
+// Replace <EntityName> with actual entity name (PascalCase, singular)
+// Replace <properties> with actual DTO properties
+
+using System;
+
+namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.<EntityName>.Consultas;
+
+// ============================================================================
+// LIST DTO (for get-all queries)
+// ============================================================================
+public record Listado<EntityName>DTO
+{
+    public Guid Id { get; init; }
+    public required string Nombre { get; init; }
+    public string? RelatedNombre { get; init; }
+    public EstadoEnum Estado { get; init; }
+    public DateTime FechaCreacion { get; init; }
+}
+
+// ============================================================================
+// SINGLE ENTITY DTO (for get-by-id queries)
+// ============================================================================
+public record <EntityName>DTO
+{
+    public Guid Id { get; init; }
+    public required string Nombre { get; init; }
+    public Guid? RelatedId { get; init; }
+    public string? RelatedNombre { get; init; }
+    public EstadoEnum Estado { get; init; }
+    public DateTime FechaCreacion { get; init; }
+    public DateTime? FechaModificacion { get; init; }
+}
+
+// ============================================================================
+// PAGINATION DTO (for paginated queries)
+// ============================================================================
+public record <EntityName>PaginacionDTO
+{
+    public int PageNumber { get; init; } = 1;
+    public int PageSize { get; init; } = 10;
+    public string? FiltroNombre { get; init; }
+    public Guid? FiltroRelatedId { get; init; }
+}
+
+// ============================================================================
+// EXAMPLES FROM PROJECT
+// ============================================================================
+
+// --- LIST DTO (like ListadoEntrenadorDTO) ---
+/*
+public record ListadoEntrenadorDTO
+{
+    public Guid Id { get; init; }
+    public required string Identificacion { get; init; }
+    public required string Nombres { get; init; }
+    public required string Apellidos { get; init; }
+    public required TipoGenero Genero { get; init; }
+    public DateTime FechaNacimiento { get; init; }
+    public string? Telefono { get; init; }
+}
+*/
+
+// --- LIST DTO WITH NAVIGATION (like ListadoEquiposDTO) ---
+/*
+public record ListadoEquiposDTO
+{
+    public Guid Id { get; init; }
+    public required string Nombre { get; init; }
+    public Guid? EntrenadorId { get; init; }
+    public string? NombresEntrenador { get; init; }
+    public string? ApellidosEntrenador { get; init; }
+}
+*/
+
+// --- SINGLE ENTITY DTO (like PersonaDTO) ---
+/*
+public record PersonaDTO
+{
+    public Guid Id { get; init; }
+    public required string Identificacion { get; init; }
+    public required string Nombres { get; init; }
+    public required string Apellidos { get; init; }
+    public DateTime FechaNacimiento { get; init; }
+    public required TipoGenero Genero { get; init; }
+    public string? Telefono { get; init; }
+    public bool EsJugador { get; init; }
+    public bool EsEntrenador { get; init; }
+}
+*/
+
+// --- PAGINATION DTO (like PersonaPaginacionDTO) ---
+/*
+public record PersonaPaginacionDTO
+{
+    public int PageNumber { get; init; } = 1;
+    public int PageSize { get; init; } = 10;
+    public string? FiltroIdentificacion { get; init; }
+    public string? FiltroNombres { get; init; }
+    public bool? EsJugador { get; init; }
+    public bool? EsEntrenador { get; init; }
+}
+*/

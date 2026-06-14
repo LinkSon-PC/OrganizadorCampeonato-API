@@ -1,0 +1,261 @@
+// Handler Command Template
+// Replace <EntityName> with actual entity name (PascalCase, singular)
+// Replace <Operation> with operation name (Agregar, Actualizar, Eliminar, Asignar)
+
+using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
+using OrganizadorCampeonato.Aplicacion.Contratos.Repositorios;
+using OrganizadorCampeonato.Aplicacion.Contratos.Persistencia;
+using OrganizadorCampeonato.Aplicacion.Excepciones;
+using OrganizadorCampeonato.Dominio.Entidades;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.<EntityName>.Comandos.<Operation><EntityName>;
+
+// ============================================================================
+// CREATE HANDLER (returns Guid)
+// ============================================================================
+public class CasoDeUso<Operation><EntityName> : IRequestHandler<Comando<Operation><EntityName>, Guid>
+{
+    private readonly IRepositorio<EntityName> repositorio;
+    private readonly IUnidadDeTrabajo unidadDeTrabajo;
+
+    public CasoDeUso<Operation><EntityName>(
+        IRepositorio<EntityName> repositorio,
+        IUnidadDeTrabajo unidadDeTrabajo)
+    {
+        this.repositorio = repositorio;
+        this.unidadDeTrabajo = unidadDeTrabajo;
+    }
+
+    public async Task<Guid> Handle(Comando<Operation><EntityName> request, CancellationToken cancellationToken)
+    {
+        // 1. Validate uniqueness or business rules
+        if (await repositorio.ExistePorNombre(request.Nombre))
+            throw new ExcepcionDeValidacion("Ya existe un registro con ese nombre");
+
+        // 2. Create entity via domain constructor
+        var entity = new <EntityName>(request.Nombre, request.RelatedId);
+
+        // 3. Persist with transaction pattern
+        try
+        {
+            await repositorio.Agregar(entity);
+            await unidadDeTrabajo.Persistir();
+            return entity.Id;
+        }
+        catch (Exception)
+        {
+            await unidadDeTrabajo.Reversar();
+            throw;
+        }
+    }
+}
+
+// ============================================================================
+// UPDATE HANDLER (returns void)
+// ============================================================================
+public class CasoDeUso<Operation><EntityName> : IRequestHandler<Comando<Operation><EntityName>>
+{
+    private readonly IRepositorio<EntityName> repositorio;
+    private readonly IUnidadDeTrabajo unidadDeTrabajo;
+
+    public CasoDeUso<Operation><EntityName>(
+        IRepositorio<EntityName> repositorio,
+        IUnidadDeTrabajo unidadDeTrabajo)
+    {
+        this.repositorio = repositorio;
+        this.unidadDeTrabajo = unidadDeTrabajo;
+    }
+
+    public async Task Handle(Comando<Operation><EntityName> request, CancellationToken cancellationToken)
+    {
+        // 1. Fetch entity
+        var entity = await repositorio.ObtenerPorId(request.Id);
+        if (entity is null)
+            throw new ExcepcionDeValidacion("No se encontró el registro");
+
+        // 2. Update using domain model methods (Set* or Actualizar*)
+        entity.ActualizarNombre(request.Nombre);
+        entity.ActualizarRelatedId(request.RelatedId);
+
+        // 3. Persist with transaction pattern
+        try
+        {
+            await repositorio.Actualizar(entity);
+            await unidadDeTrabajo.Persistir();
+        }
+        catch (Exception)
+        {
+            await unidadDeTrabajo.Reversar();
+            throw;
+        }
+    }
+}
+
+// ============================================================================
+// DELETE HANDLER (returns void)
+// ============================================================================
+public class CasoDeUso<Operation><EntityName> : IRequestHandler<Comando<Operation><EntityName>>
+{
+    private readonly IRepositorio<EntityName> repositorio;
+    private readonly IUnidadDeTrabajo unidadDeTrabajo;
+
+    public CasoDeUso<Operation><EntityName>(
+        IRepositorio<EntityName> repositorio,
+        IUnidadDeTrabajo unidadDeTrabajo)
+    {
+        this.repositorio = repositorio;
+        this.unidadDeTrabajo = unidadDeTrabajo;
+    }
+
+    public async Task Handle(Comando<Operation><EntityName> request, CancellationToken cancellationToken)
+    {
+        // 1. Fetch entity
+        var entity = await repositorio.ObtenerPorId(request.Id);
+        if (entity is null)
+            throw new ExcepcionDeValidacion("No se encontró el registro");
+
+        // 2. Delete with transaction pattern
+        try
+        {
+            await repositorio.Eliminar(entity);
+            await unidadDeTrabajo.Persistir();
+        }
+        catch (Exception)
+        {
+            await unidadDeTrabajo.Reversar();
+            throw;
+        }
+    }
+}
+
+// ============================================================================
+// EXAMPLES FROM PROJECT
+// ============================================================================
+
+// --- CREATE (like CasoDeUsoAgregarPersona) ---
+/*
+public class CasoDeUsoAgregarPersona : IRequestHandler<ComandoAgregarPersona, Guid>
+{
+    private readonly IRepositorioPersona repositorio;
+    private readonly IUnidadDeTrabajo unidadDeTrabajo;
+
+    public CasoDeUsoAgregarPersona(IRepositorioPersona repositorio, IUnidadDeTrabajo unidadDeTrabajo)
+    {
+        this.repositorio = repositorio;
+        this.unidadDeTrabajo = unidadDeTrabajo;
+    }
+
+    public async Task<Guid> Handle(ComandoAgregarPersona request, CancellationToken cancellationToken)
+    {
+        if (await repositorio.IdentificacionYaRegistrada(request.Identificacion))
+            throw new ExcepcionDeValidacion("Identificación ya registrada");
+
+        var persona = new Persona(
+            request.Identificacion,
+            request.Nombres,
+            request.Apellidos,
+            request.FechaNacimiento,
+            request.Telefono!,
+            request.Genero
+        );
+
+        try
+        {
+            var resultado = await repositorio.Agregar(persona);
+            await unidadDeTrabajo.Persistir();
+            return resultado.Id;
+        }
+        catch (Exception)
+        {
+            await unidadDeTrabajo.Reversar();
+            throw;
+        }
+    }
+}
+*/
+
+// --- UPDATE (like CasoDeUsoActualizarPersona) ---
+/*
+public class CasoDeUsoActualizarPersona : IRequestHandler<ComandoActualizarPersona>
+{
+    private readonly IRepositorioPersona repositorio;
+    private readonly IUnidadDeTrabajo unidadDeTrabajo;
+
+    public CasoDeUsoActualizarPersona(IRepositorioPersona repositorio, IUnidadDeTrabajo unidadDeTrabajo)
+    {
+        this.repositorio = repositorio;
+        this.unidadDeTrabajo = unidadDeTrabajo;
+    }
+
+    public async Task Handle(ComandoActualizarPersona request, CancellationToken cancellationToken)
+    {
+        var persona = await repositorio.ObtenerPorId(request.Id);
+        if (persona is null)
+            throw new ExcepcionDeValidacion("No se encontró la persona");
+
+        persona.SetNombres(request.Nombres);
+        persona.SetApellidos(request.Apellidos);
+        persona.SetIdentificacion(request.Identificacion);
+        persona.SetFechaNacimiento(request.FechaNacimiento);
+        persona.SetTelefono(request.Telefono);
+
+        try
+        {
+            await repositorio.Actualizar(persona);
+            await unidadDeTrabajo.Persistir();
+        }
+        catch (Exception)
+        {
+            await unidadDeTrabajo.Reversar();
+            throw;
+        }
+    }
+}
+*/
+
+// --- ASSIGN (like CasoDeUsoAsignarEntrenador) ---
+/*
+public class CasoDeUsoAsignarEntrenador : IRequestHandler<ComandoAsignarEntrenador>
+{
+    private readonly IRepositorioEntrenador repositorioEntrenador;
+    private readonly IRepositorioPersona repositorioPersona;
+    private readonly IUnidadDeTrabajo unidadDeTrabajo;
+
+    public CasoDeUsoAsignarEntrenador(
+        IRepositorioEntrenador repositorioEntrenador,
+        IRepositorioPersona repositorioPersona,
+        IUnidadDeTrabajo unidadDeTrabajo)
+    {
+        this.repositorioEntrenador = repositorioEntrenador;
+        this.repositorioPersona = repositorioPersona;
+        this.unidadDeTrabajo = unidadDeTrabajo;
+    }
+
+    public async Task Handle(ComandoAsignarEntrenador request, CancellationToken cancellationToken)
+    {
+        var persona = await repositorioPersona.ObtenerPorIdentificacion(request.Identificacion);
+        if (persona is null)
+            throw new ExcepcionDeValidacion("No se encontró persona");
+
+        var buscarJugador = await repositorioPersona.PersonaComoJugador(request.Identificacion);
+        if (buscarJugador)
+            throw new ExcepcionDeValidacion("Persona ya asignada como jugador");
+
+        var entrenador = new Entrenador(persona.Id);
+
+        try
+        {
+            await repositorioEntrenador.Agregar(entrenador);
+            await unidadDeTrabajo.Persistir();
+        }
+        catch (Exception)
+        {
+            await unidadDeTrabajo.Reversar();
+            throw;
+        }
+    }
+}
+*/

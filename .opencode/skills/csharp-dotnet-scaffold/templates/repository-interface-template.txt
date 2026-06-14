@@ -1,0 +1,58 @@
+// Repository Interface Template
+// Replace <EntityName> with the actual entity name (PascalCase, singular)
+// Replace <custom_methods> with actual custom method signatures
+
+using OrganizadorCampeonato.Dominio.Comunes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace OrganizadorCampeonato.Aplicacion.Contratos.Repositorios
+{
+    public interface IRepositorio<EntityName> : IGenericRepository<EntityName, Guid>
+    {
+        <custom_methods>
+    }
+}
+
+// ============================================================================
+// EXAMPLES BY ENTITY TYPE
+// ============================================================================
+
+// --- SIMPLE ENTITY (no custom methods, like IRepositorioEquipo) ---
+/*
+public interface IRepositorioEquipo : IGenericRepository<Equipo, Guid>
+{
+}
+*/
+
+// --- ENTITY WITH CUSTOM METHODS (like IRepositorioPersona) ---
+/*
+public interface IRepositorioPersona : IGenericRepository<Persona, Guid>
+{
+    Task<bool> IdentificacionYaRegistrada(string identificacion);
+    Task<bool> PersonaComoJugador(string identificacion);
+    Task<Persona?> ObtenerPorIdentificacion(string identificacion);
+    Task<IEnumerable<Persona>> ObtenerPaginado(PersonaPaginacionDTO paginado);
+}
+*/
+
+// --- TPH ENTITY (like IRepositorioJugador) ---
+/*
+public interface IRepositorioJugador : IGenericRepository<Jugador, Guid>
+{
+    Task AsignarComoJugador(Guid Id);
+    Task<IEnumerable<Jugador>> ObtenerTodosJugadores();
+}
+*/
+
+// --- ENTITY WITH QUERY METHODS ---
+/*
+public interface IRepositorioTorneo : IGenericRepository<Torneo, Guid>
+{
+    Task<Torneo?> ObtenerPorNombre(string nombre);
+    Task<IEnumerable<Torneo>> ObtenerTorneosActivos();
+    Task<bool> ExistePorNombre(string nombre);
+}
+*/

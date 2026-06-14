@@ -1,0 +1,54 @@
+// Query Template - Record Syntax
+// Replace <EntityName> with actual entity name (PascalCase, singular)
+// Replace <Operation> with operation name (ObtenerTodos, ObtenerPorId, ObtenerPaginados)
+
+using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
+using OrganizadorCampeonato.Aplicacion.Comunes.Dtos;
+using System;
+using System.Collections.Generic;
+
+namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.<EntityName>.Consultas.<Operation><EntityName>;
+
+// ============================================================================
+// GET ALL QUERY (returns List<DTO>)
+// ============================================================================
+public record Consulta<Operation><EntityName> : IRequest<List<Listado<EntityName>DTO>>;
+
+// ============================================================================
+// GET BY ID QUERY (returns single DTO)
+// ============================================================================
+public record Consulta<Operation><EntityName>(Guid Id) : IRequest<<EntityName>DTO>;
+
+// ============================================================================
+// GET PAGINATED QUERY (returns PaginadoDTO<List<DTO>>)
+// ============================================================================
+public record Consulta<Operation><EntityName>(
+    int PageNumber = 1,
+    int PageSize = 10
+) : IRequest<PaginadoDTO<Listado<EntityName>DTO>>;
+
+// ============================================================================
+// EXAMPLES FROM PROJECT
+// ============================================================================
+
+// --- GET ALL (like ConsultaObtenerTodosEntrenadores) ---
+/*
+public record ConsultaObtenerTodosEntrenadores : IRequest<List<ListadoEntrenadorDTO>>;
+*/
+
+// --- GET BY ID (like ConsultaObtenerPersonaPorId) ---
+/*
+public record ConsultaObtenerPersonaPorId(Guid Id) : IRequest<PersonaDTO>;
+*/
+
+// --- GET ALL WITH PAGINATION (like ConsultaObtenerTodosPersonas) ---
+/*
+public record ConsultaObtenerTodosPersonas : PersonaPaginacionDTO, IRequest<PaginadoDTO<ListadoPersonasDTO>>;
+*/
+
+// --- GET BY IDENTIFICATION (custom query) ---
+/*
+public record ConsultaObtenerPersonaPorIdentificacion(
+    string Identificacion
+) : IRequest<PersonaDTO>;
+*/
