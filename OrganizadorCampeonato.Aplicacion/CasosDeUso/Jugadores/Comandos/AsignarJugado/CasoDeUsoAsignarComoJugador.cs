@@ -42,7 +42,7 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Jugadores.Comandos.Asignar
                 await repositorioJugador.Agregar(jugador);
                 await unidadDeTrabajo.Persistir();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await unidadDeTrabajo.Reversar();
                 throw;

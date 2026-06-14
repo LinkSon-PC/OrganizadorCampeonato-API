@@ -18,7 +18,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
 
         public Guid TorneoId { get; private set; }
         public Guid EquipoId { get; private set; }
-        public Torneo Torneo { get; private set; }
-        public Equipo Equipo { get; private set; }
+        public Torneo Torneo { get; private set; } = null!;
+        public Equipo Equipo { get; private set; } = null!;
     }
 }

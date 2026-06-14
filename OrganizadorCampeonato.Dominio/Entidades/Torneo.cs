@@ -30,12 +30,12 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         public string Nombre { get; private set; }
         public string Lugar { get; private set; }
         public string? Descripcion { get; private set; }
-        public Guid? CategoriaId { get; private set; }
+        public Guid CategoriaId { get; private set; }
         public FormatoTorneo Formato {  get; private set; }
         public DateTime FechaInicio { get; private set; }
         public DateTime FechaFin { get; private set; }
         public Categoria? Categoria { get; private set; }
-        public List<TorneoEquipo> TorneoEquipo { get; private set; }
+        public List<TorneoEquipo> TorneoEquipo { get; private set; } = new();
 
 
         private void ValidarNombre(string nombre)
@@ -50,11 +50,11 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         }
         private void ValidarFechas(DateTime inicio, DateTime fin)
         {
-            if (inicio < fin)
-                throw new ExcepcionReglaDeNegocio("Fecha de incio no puede ser menor que fecha fin");
+            if (inicio > fin)
+                throw new ExcepcionReglaDeNegocio("Fecha de inicio no puede ser mayor que fecha fin");
 
-            if(inicio < DateTime.UtcNow)
-                throw new ExcepcionReglaDeNegocio("Fecha incio no puede ser menor a fecha actual");
+            if(inicio < DateTime.UtcNow.Date)
+                throw new ExcepcionReglaDeNegocio("Fecha inicio no puede ser menor a fecha actual");
         }
     }
 }

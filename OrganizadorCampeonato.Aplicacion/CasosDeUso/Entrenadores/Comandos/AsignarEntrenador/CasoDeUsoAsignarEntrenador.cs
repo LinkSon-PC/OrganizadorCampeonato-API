@@ -42,7 +42,7 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Entrenadores.Comandos.Asig
                 await repositorioEntrenador.Agregar(entrenador);
                 await unidadDeTrabajo.Persistir();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await unidadDeTrabajo.Reversar();
                 throw;

@@ -50,7 +50,7 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Jugadores.Comandos.Agregar
                 await unidadDeTrabajo.Persistir();
                 return persona.Id;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await unidadDeTrabajo.Reversar();
                 throw;

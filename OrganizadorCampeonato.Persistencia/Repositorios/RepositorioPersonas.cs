@@ -43,7 +43,7 @@ namespace OrganizadorCampeonato.Persistencia.Repositorios
             var persona = await context.Personas.Include(x => x.Entrenador)
                 .FirstOrDefaultAsync(x => x.Identificacion.Equals(identificacion));
 
-            return persona?.Jugador != null;
+            return persona?.Entrenador != null;
         }
 
         public async Task<IEnumerable<Persona>> ObtenerPaginado(PersonaPaginacionDTO paginado)

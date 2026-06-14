@@ -50,7 +50,7 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Entrenadores.Comandos.Agre
                 await unidadDeTrabajo.Persistir();
                 return persona.Id;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await unidadDeTrabajo.Reversar();
                 throw;

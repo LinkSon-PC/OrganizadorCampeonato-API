@@ -44,7 +44,7 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Comandos.AgregarP
                 await unidadDeTrabajo.Persistir();
                 return resultado.Id;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await unidadDeTrabajo.Reversar();
                 throw;

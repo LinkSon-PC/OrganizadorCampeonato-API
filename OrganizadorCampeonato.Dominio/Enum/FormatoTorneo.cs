@@ -9,7 +9,7 @@ namespace OrganizadorCampeonato.Dominio.Enum
     public enum FormatoTorneo
     {
         Liga = 1,
-        ElimimnacionDirecta = 2,
+        EliminacionDirecta = 2,
         Grupos = 3
     }
 }

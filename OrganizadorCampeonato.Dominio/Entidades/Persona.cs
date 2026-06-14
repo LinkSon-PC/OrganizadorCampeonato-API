@@ -23,15 +23,15 @@ namespace OrganizadorCampeonato.Dominio.Entidades
 
         private Persona() { }
 
-        public Persona(string identificacion, string nombre, string apellidos, DateTime fechaNacimiento, string telefono, TipoGenero genero)
+        public Persona(string identificacion, string nombres, string apellidos, DateTime fechaNacimiento, string telefono, TipoGenero genero)
         {
-            ValidarNombres(nombre);
+            ValidarNombres(nombres);
             ValidarApellidos(apellidos);
             ValidarIdentificacion(identificacion);
             ValidarTelefono(telefono);
 
             Identificacion = identificacion;
-            Nombres = nombre;
+            Nombres = nombres;
             Apellidos = apellidos;
             FechaNacimiento = fechaNacimiento;
             Telefono = telefono;
@@ -63,7 +63,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
 
         private void ValidarTelefono(string? telefono)
         {
-            if (string.IsNullOrEmpty(telefono))
+            if (string.IsNullOrWhiteSpace(telefono))
                 return;
 
             if (!uint.TryParse(telefono, out _) || telefono.Length != 8)

@@ -22,7 +22,11 @@ namespace OrganizadorCampeonato.Persistencia.Configuraciones
                 .HasMaxLength(150);
 
             builder.Property(x => x.Identificacion)
+                .IsRequired()
                 .HasMaxLength(13);
+
+            builder.HasIndex(x => x.Identificacion)
+                .IsUnique();
 
             builder.Property(x => x.Telefono)
                 .HasMaxLength(8);

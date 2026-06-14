@@ -1,6 +1,7 @@
 ﻿using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
 using OrganizadorCampeonato.Aplicacion.Contratos.Persistencia;
 using OrganizadorCampeonato.Aplicacion.Contratos.Repositorios;
+using OrganizadorCampeonato.Dominio.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,28 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Torneos.Comandos.AgregarTo
             this.unidadDeTrabajo = unidadDeTrabajo;
         }
 
-        public Task Handle(ComandoAgregarTorneo request)
+        public async Task Handle(ComandoAgregarTorneo request)
         {
-            throw new NotImplementedException();
+            var torneo = new Torneo(
+                request.Nombre,
+                request.Lugar,
+                request.CategoriaId,
+                request.Formato,
+                request.FechaInicio,
+                request.FechaFin,
+                request.Descripcion ?? string.Empty
+            );
+
+            try
+            {
+                await repositorio.Agregar(torneo);
+                await unidadDeTrabajo.Persistir();
+            }
+            catch (Exception)
+            {
+                await unidadDeTrabajo.Reversar();
+                throw;
+            }
         }
     }
 }

@@ -20,7 +20,7 @@ namespace OrganizadorCampeonato.Persistencia.Configuraciones
 
             builder.HasOne(x => x.Equipo)
                 .WithMany(t => t.TorneoEquipo)
-                .HasForeignKey(x => x.TorneoId)
+                .HasForeignKey(x => x.EquipoId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }
