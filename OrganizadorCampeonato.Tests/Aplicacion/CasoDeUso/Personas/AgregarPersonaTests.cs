@@ -45,7 +45,7 @@ namespace OrganizadorCampeonato.Tests.Aplicacion.CasoDeUso.Personas
                 Genero = TipoGenero.Masculino
             };
 
-            var persona = new Persona("1112223334445", "Nombre A", "Apellido 2", DateTime.UtcNow, "22223333", TipoGenero.Masculino);
+            var persona = new Persona(Guid.CreateVersion7(), "1112223334445", "Nombre A", "Apellido 2", DateTime.UtcNow, "22223333", TipoGenero.Masculino);
 
             repositorio.IdentificacionYaRegistrada(Arg.Any<string>()).Returns(false);
             repositorio.Agregar(Arg.Any<Persona>()).Returns(persona);

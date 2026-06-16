@@ -74,7 +74,7 @@ Rules:
 - All scalar properties: `public <Type> <Name> { get; private set; }`
 - Collections: `public List<<Related>> <Name> { get; private set; } = new();`
 - Navigation to parent: `public <Related> <Name> { get; private set; } = null!;`
-- ID assignment in constructor: `Id = Guid.CreateVersion7();`
+- ID assignment: `Guid id` as first parameter, passed to `base(id)`
 - Validation: private `Validar<Property>` methods throwing `ExcepcionReglaDeNegocio`
 - For required string properties: validate `string.IsNullOrWhiteSpace`
 - For required Guid properties: validate `== Guid.Empty`
@@ -199,7 +199,7 @@ If the user wants to undo (remove entity + migration):
 
 | Aspect | Rule |
 |--------|------|
-| Entity ID | Always `Guid`, assigned with `Guid.CreateVersion7()` in constructor |
+| Entity ID | Always `Guid`, received as first parameter and passed to `base(id)` |
 | Property setters | Always `private set` |
 | Collection inits | `= new()` |
 | Nav property inits | `= null!` |

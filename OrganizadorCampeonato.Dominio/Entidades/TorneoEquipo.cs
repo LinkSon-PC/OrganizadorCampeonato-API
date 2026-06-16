@@ -1,5 +1,6 @@
 ﻿using OrganizadorCampeonato.Dominio.Comunes;
 using OrganizadorCampeonato.Dominio.Enum;
+using OrganizadorCampeonato.Dominio.Excepciones;
 using System;
 using System.Collections.Generic;
 
@@ -9,7 +10,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
     {
         private TorneoEquipo() { }
 
-        public TorneoEquipo(Guid torneoId, Guid equipoId, int? posicion = null)
+        public TorneoEquipo(Guid id, Guid torneoId, Guid equipoId, int? posicion = null) : base(id)
         {
             TorneoId = torneoId;
             EquipoId = equipoId;
@@ -29,11 +30,15 @@ namespace OrganizadorCampeonato.Dominio.Entidades
 
         public void MarcarEliminado()
         {
+            if (Estado == EstadoInscripcion.Campeon)
+                throw new ExcepcionReglaDeNegocio("No se puede eliminar a un equipo campeón");
             Estado = EstadoInscripcion.Eliminado;
         }
 
         public void MarcarCampeon()
         {
+            if (Estado == EstadoInscripcion.Eliminado)
+                throw new ExcepcionReglaDeNegocio("No se puede nombrar campeón a un equipo eliminado");
             Estado = EstadoInscripcion.Campeon;
         }
 

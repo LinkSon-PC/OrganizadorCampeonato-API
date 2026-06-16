@@ -10,7 +10,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
     {
         private Partido() { }
 
-        public Partido(DateTime fechaHora, string lugar, Guid torneoId, int ronda, string grupo = "")
+        public Partido(Guid id, DateTime fechaHora, string lugar, Guid torneoId, int ronda, string grupo = "") : base(id)
         {
             ValidarFechaHora(fechaHora);
             ValidarLugar(lugar);
@@ -72,6 +72,8 @@ namespace OrganizadorCampeonato.Dominio.Entidades
             decimal? puntosLocal_Prorroga, decimal? puntosVisitante_Prorroga,
             decimal? puntosLocal_Prorroga2, decimal? puntosVisitante_Prorroga2)
         {
+            if (Estado != EstadoPartido.Programada)
+                throw new ExcepcionReglaDeNegocio("Solo se pueden actualizar puntuaciones de partidos programados");
             PuntosLocal_P1 = puntosLocal_P1;
             PuntosVisitante_P1 = puntosVisitante_P1;
             PuntosLocal_P2 = puntosLocal_P2;
@@ -88,6 +90,8 @@ namespace OrganizadorCampeonato.Dominio.Entidades
 
         public void MarcarComoCompletado(Guid? ganadorId)
         {
+            if (Estado == EstadoPartido.Cancelada || Estado == EstadoPartido.Completada)
+                throw new ExcepcionReglaDeNegocio("No se puede completar un partido cancelado o ya completado");
             if (ganadorId == Guid.Empty)
                 throw new ExcepcionReglaDeNegocio("Debe especificar el equipo ganador");
             GanadorId = ganadorId;
@@ -96,6 +100,8 @@ namespace OrganizadorCampeonato.Dominio.Entidades
 
         public void MarcarComoCancelada()
         {
+            if (Estado == EstadoPartido.Completada)
+                throw new ExcepcionReglaDeNegocio("No se puede cancelar un partido completado");
             Estado = EstadoPartido.Cancelada;
         }
 

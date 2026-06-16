@@ -12,7 +12,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
     public class Torneo : EntidadAuditable<Guid>
     {
         private Torneo() { }
-        public Torneo(string nombre, string lugar, Guid categoriaId, FormatoTorneo formato, DateTime inicio, DateTime fin, string descripcion = "")
+        public Torneo(Guid id, string nombre, string lugar, Guid categoriaId, FormatoTorneo formato, DateTime inicio, DateTime fin, string descripcion = "") : base(id)
         {
             ValidarNombre(nombre);
             ValidarLugar(lugar);

@@ -1,4 +1,6 @@
 using OrganizadorCampeonato.Dominio.Comunes;
+using OrganizadorCampeonato.Dominio.Enum;
+using OrganizadorCampeonato.Dominio.Excepciones;
 using System;
 
 namespace OrganizadorCampeonato.Dominio.Entidades
@@ -7,7 +9,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
     {
         private PartidoEquipo() { }
 
-        public PartidoEquipo(Guid partidoId, Guid equipoId, bool esLocal)
+        public PartidoEquipo(Guid id, Guid partidoId, Guid equipoId, bool esLocal) : base(id)
         {
             PartidoId = partidoId;
             EquipoId = equipoId;
@@ -22,8 +24,10 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         public Partido Partido { get; private set; } = null!;
         public Equipo Equipo { get; private set; } = null!;
 
-        public void MarcarComoGanador()
+        public void MarcarComoGanador(EstadoPartido estadoDelPartido)
         {
+            if (estadoDelPartido != EstadoPartido.Completada)
+                throw new ExcepcionReglaDeNegocio("Solo se puede marcar ganador en partido completado");
             EsGanador = true;
         }
     }

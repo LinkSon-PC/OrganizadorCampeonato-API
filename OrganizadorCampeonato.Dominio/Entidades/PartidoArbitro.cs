@@ -7,7 +7,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
     {
         private PartidoArbitro() { }
 
-        public PartidoArbitro(Guid partidoId, Guid arbitroId, string? rol)
+        public PartidoArbitro(Guid id, Guid partidoId, Guid arbitroId, string? rol) : base(id)
         {
             PartidoId = partidoId;
             ArbitroId = arbitroId;

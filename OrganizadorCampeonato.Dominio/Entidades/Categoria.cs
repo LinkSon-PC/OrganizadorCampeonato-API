@@ -11,7 +11,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
     public class Categoria : EntidadAuditable<Guid>
     {
         private Categoria() { }
-        public Categoria(TipoCategoria categoria, TipoGenero genero)
+        public Categoria(Guid id, TipoCategoria categoria, TipoGenero genero) : base(id)
         {
             Tipo = categoria;
             Genero = genero;

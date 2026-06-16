@@ -11,7 +11,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
     public class Equipo : EntidadAuditable<Guid>
     {
         public Equipo() { }
-        public Equipo(string nombre, Guid? entrenadorId, Guid? categoriaId)
+        public Equipo(Guid id, string nombre, Guid? entrenadorId, Guid? categoriaId) : base(id)
         {
             ValidarNombre(nombre);
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,10 @@ namespace OrganizadorCampeonato.Dominio.Comunes
         public string? CreadoPor { get; set; }
         public DateTime FechaCreacion { get; set; }
         public string? UltimaModificacionPor { get; set; }
+        [ConcurrencyCheck]
         public DateTime? UltimaFechaModificacion { get; set; }
+
+        protected EntidadAuditable() { }
+        protected EntidadAuditable(TId id) => Id = id;
     }
 }

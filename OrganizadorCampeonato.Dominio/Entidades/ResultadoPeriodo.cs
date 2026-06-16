@@ -8,7 +8,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
     {
         private ResultadoPeriodo() { }
 
-        public ResultadoPeriodo(Guid partidoId, TipoPeriodo periodo, Guid equipoId)
+        public ResultadoPeriodo(Guid id, Guid partidoId, TipoPeriodo periodo, Guid equipoId) : base(id)
         {
             PartidoId = partidoId;
             Periodo = periodo;

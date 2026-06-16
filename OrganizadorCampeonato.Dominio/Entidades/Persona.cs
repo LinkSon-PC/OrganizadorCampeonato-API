@@ -24,7 +24,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
 
         private Persona() { }
 
-        public Persona(string identificacion, string nombres, string apellidos, DateTime fechaNacimiento, string telefono, TipoGenero genero)
+        public Persona(Guid id, string identificacion, string nombres, string apellidos, DateTime fechaNacimiento, string telefono, TipoGenero genero) : base(id)
         {
             ValidarNombres(nombres);
             ValidarApellidos(apellidos);
@@ -37,8 +37,6 @@ namespace OrganizadorCampeonato.Dominio.Entidades
             FechaNacimiento = fechaNacimiento;
             Telefono = telefono;
             Genero = genero;
-
-            Id = Guid.CreateVersion7();
         }
 
         private void ValidarNombres(string nombres)
@@ -74,7 +72,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         public void SetIdentificacion(string identificacion)
         {
             ValidarIdentificacion(identificacion);
-            Identificacion = Identificacion;
+            Identificacion = identificacion;
         }
         public void SetNombres(string nombres)
         {
@@ -93,6 +91,8 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         }
         public void SetFechaNacimiento(DateTime fechaNacimiento)
         {
+            if (fechaNacimiento > DateTime.UtcNow)
+                throw new ExcepcionReglaDeNegocio("La fecha de nacimiento no puede ser futura");
             FechaNacimiento = fechaNacimiento;
         }
     }

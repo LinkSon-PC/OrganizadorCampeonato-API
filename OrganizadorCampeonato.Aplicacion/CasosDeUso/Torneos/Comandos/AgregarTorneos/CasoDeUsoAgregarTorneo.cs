@@ -25,6 +25,7 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Torneos.Comandos.AgregarTo
         public async Task Handle(ComandoAgregarTorneo request)
         {
             var torneo = new Torneo(
+                Guid.CreateVersion7(),
                 request.Nombre,
                 request.Lugar,
                 request.CategoriaId,

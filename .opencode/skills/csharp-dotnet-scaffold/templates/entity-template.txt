@@ -19,13 +19,11 @@ namespace OrganizadorCampeonato.Dominio.Entidades
     {
         private <EntityName>() { }
 
-        public <EntityName>(<constructor_params>)
+        public <EntityName>(Guid id, <constructor_params>) : base(id)
         {
             <validations>
 
             <assignments>
-
-            Id = Guid.CreateVersion7();
         }
 
         // Scalar properties (private set)
@@ -48,8 +46,8 @@ namespace OrganizadorCampeonato.Dominio.Entidades
 public class Categoria : EntidadAuditable<Guid>
 {
     private Categoria() { }
-    
-    public Categoria(TipoCategoria tipo, TipoGenero genero)
+
+    public Categoria(Guid id, TipoCategoria tipo, TipoGenero genero) : base(id)
     {
         Tipo = tipo;
         Genero = genero;
@@ -67,8 +65,8 @@ public class Persona : EntidadAuditable<Guid>
 {
     private Persona() { }
 
-    public Persona(string identificacion, string nombres, string apellidos, 
-                   DateTime fechaNacimiento, string telefono, TipoGenero genero)
+    public Persona(Guid id, string identificacion, string nombres, string apellidos,
+                   DateTime fechaNacimiento, string telefono, TipoGenero genero) : base(id)
     {
         ValidarNombres(nombres);
         ValidarApellidos(apellidos);
@@ -81,8 +79,6 @@ public class Persona : EntidadAuditable<Guid>
         FechaNacimiento = fechaNacimiento;
         Telefono = telefono;
         Genero = genero;
-
-        Id = Guid.CreateVersion7();
     }
 
     public string Identificacion { get; private set; }
@@ -132,10 +128,7 @@ public class Jugador : EntidadAuditable<Guid>
 {
     private Jugador() { }
 
-    public Jugador(Guid Id)
-    {
-        this.Id = Id;
-    }
+    public Jugador(Guid id) : base(id) { }
 
     public Persona Persona { get; private set; } = null!;
 }
@@ -146,8 +139,8 @@ public class Jugador : EntidadAuditable<Guid>
 public class TorneoEquipo : EntidadAuditable<Guid>
 {
     private TorneoEquipo() { }
-    
-    public TorneoEquipo(Guid torneoId, Guid equipoId)
+
+    public TorneoEquipo(Guid id, Guid torneoId, Guid equipoId) : base(id)
     {
         TorneoId = torneoId;
         EquipoId = equipoId;

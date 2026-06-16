@@ -30,10 +30,11 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Comandos.AgregarP
             }
 
             var persona = new Persona(
+                Guid.CreateVersion7(),
                 request.Identificacion,
-                request.Nombres, 
-                request.Apellidos, 
-                request.FechaNaciemiento, 
+                request.Nombres,
+                request.Apellidos,
+                request.FechaNaciemiento,
                 request.Telefono!,
                 request.Genero
             );

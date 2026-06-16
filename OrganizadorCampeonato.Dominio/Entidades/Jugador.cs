@@ -11,10 +11,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
     {
         private Jugador() { }
 
-        public Jugador(Guid Id)
-        {
-            this.Id = Id;
-        }
+        public Jugador(Guid id) : base(id) { }
 
         public Persona Persona { get; private set; } = null!;
         public List<EquipoJugador> EquipoJugadores { get; private set; } = new();

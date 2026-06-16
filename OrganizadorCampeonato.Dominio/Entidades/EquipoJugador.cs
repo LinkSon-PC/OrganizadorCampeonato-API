@@ -7,7 +7,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
     {
         private EquipoJugador() { }
 
-        public EquipoJugador(Guid equipoId, Guid jugadorId)
+        public EquipoJugador(Guid id, Guid equipoId, Guid jugadorId) : base(id)
         {
             if (equipoId == Guid.Empty)
                 throw new ArgumentException("El equipo es requerido", nameof(equipoId));

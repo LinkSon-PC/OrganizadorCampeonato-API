@@ -33,6 +33,7 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Entrenadores.Comandos.Agre
             }
 
             Persona persona = new Persona(
+                Guid.CreateVersion7(),
                 request.Identificacion,
                 request.Nombres,
                 request.Apellidos,
