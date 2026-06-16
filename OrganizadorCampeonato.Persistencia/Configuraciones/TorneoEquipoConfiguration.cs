@@ -14,12 +14,12 @@ namespace OrganizadorCampeonato.Persistencia.Configuraciones
         public void Configure(EntityTypeBuilder<TorneoEquipo> builder)
         {
             builder.HasOne(x => x.Torneo)
-                .WithMany(t => t.TorneoEquipo)
+                .WithMany(t => t.TorneoEquipos)
                 .HasForeignKey(x => x.TorneoId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(x => x.Equipo)
-                .WithMany(t => t.TorneoEquipo)
+                .WithMany(t => t.TorneoEquipos)
                 .HasForeignKey(x => x.EquipoId)
                 .OnDelete(DeleteBehavior.NoAction);
         }

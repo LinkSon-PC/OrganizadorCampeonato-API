@@ -40,6 +40,11 @@ namespace OrganizadorCampeonato.Persistencia.Configuraciones
                    .WithOne(j => j.Persona)
                    .HasForeignKey<Entrenador>(p => p.Id)
                    .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne(p => p.Arbitro)
+                   .WithOne(j => j.Persona)
+                   .HasForeignKey<Arbitro>(p => p.Id)
+                   .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

@@ -24,7 +24,10 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         public Guid? EntrenadorId { get; private set; }
         public Guid? CategoriaId { get; private set; }
         public Entrenador? Entrenador { get; private set; } = null!;
-        public List<TorneoEquipo> TorneoEquipo { get; private set; } = null!;
+        public Categoria? Categoria { get; private set; } = null!;
+        public List<TorneoEquipo> TorneoEquipos { get; private set; } = new();
+        public List<PartidoEquipo> PartidoEquipos { get; private set; } = new();
+        public List<EquipoJugador> EquipoJugadores { get; private set; } = new();
 
         private void ValidarNombre(string nombre)
         {

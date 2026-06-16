@@ -13,11 +13,6 @@ namespace OrganizadorCampeonato.Persistencia.Configuraciones
     {
         public void Configure(EntityTypeBuilder<Entrenador> builder)
         {
-            builder.HasMany<Equipo>(e => e.Equipos)
-                .WithOne(ep => ep.Entrenador)
-                .HasForeignKey(e => e.EntrenadorId)
-                .IsRequired(false)
-                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

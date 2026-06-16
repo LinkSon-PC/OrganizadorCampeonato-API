@@ -18,6 +18,12 @@ namespace OrganizadorCampeonato.Persistencia.Configuraciones
                 .WithOne(t => t.Categoria)
                 .HasForeignKey(c => c.CategoriaId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasMany(c => c.Equipos)
+                .WithOne(e => e.Categoria)
+                .HasForeignKey(e => e.CategoriaId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

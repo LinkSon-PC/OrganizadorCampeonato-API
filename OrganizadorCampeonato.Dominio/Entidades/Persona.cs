@@ -20,6 +20,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         public string? Telefono { get; private set; }
         public Jugador? Jugador { get; private set; } = null;
         public Entrenador? Entrenador { get; private set; } = null;
+        public Arbitro? Arbitro { get; private set; } = null;
 
         private Persona() { }
 

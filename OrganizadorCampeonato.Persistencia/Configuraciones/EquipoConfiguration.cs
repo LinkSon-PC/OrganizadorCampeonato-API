@@ -17,6 +17,20 @@ namespace OrganizadorCampeonato.Persistencia.Configuraciones
             builder.Property(x => x.Nombre)
                 .IsRequired()
                 .HasMaxLength(150);
+
+            builder.HasOne(e => e.Entrenador)
+                .WithMany(en => en.Equipos)
+                .HasForeignKey(e => e.EntrenadorId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne(e => e.Categoria)
+                .WithMany(c => c.Equipos)
+                .HasForeignKey(e => e.CategoriaId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasIndex(x => x.Nombre);
         }
     }
 }

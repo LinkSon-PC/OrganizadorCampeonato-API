@@ -35,7 +35,8 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         public DateTime FechaInicio { get; private set; }
         public DateTime FechaFin { get; private set; }
         public Categoria? Categoria { get; private set; }
-        public List<TorneoEquipo> TorneoEquipo { get; private set; } = new();
+        public List<TorneoEquipo> TorneoEquipos { get; private set; } = new();
+        public List<Partido> Partidos { get; private set; } = new();
 
 
         private void ValidarNombre(string nombre)
