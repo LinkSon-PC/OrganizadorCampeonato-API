@@ -39,8 +39,10 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         public decimal? PuntosVisitante_P4 { get; private set; }
         public decimal? PuntosLocal_Prorroga { get; private set; }
         public decimal? PuntosVisitante_Prorroga { get; private set; }
-        public decimal PuntosLocal => (PuntosLocal_P1 ?? 0) + (PuntosLocal_P2 ?? 0) + (PuntosLocal_P3 ?? 0) + (PuntosLocal_P4 ?? 0) + (PuntosLocal_Prorroga ?? 0);
-        public decimal PuntosVisitante => (PuntosVisitante_P1 ?? 0) + (PuntosVisitante_P2 ?? 0) + (PuntosVisitante_P3 ?? 0) + (PuntosVisitante_P4 ?? 0) + (PuntosVisitante_Prorroga ?? 0);
+        public decimal? PuntosLocal_Prorroga2 { get; private set; }
+        public decimal? PuntosVisitante_Prorroga2 { get; private set; }
+        public decimal PuntosLocal => (PuntosLocal_P1 ?? 0) + (PuntosLocal_P2 ?? 0) + (PuntosLocal_P3 ?? 0) + (PuntosLocal_P4 ?? 0) + (PuntosLocal_Prorroga ?? 0) + (PuntosLocal_Prorroga2 ?? 0);
+        public decimal PuntosVisitante => (PuntosVisitante_P1 ?? 0) + (PuntosVisitante_P2 ?? 0) + (PuntosVisitante_P3 ?? 0) + (PuntosVisitante_P4 ?? 0) + (PuntosVisitante_Prorroga ?? 0) + (PuntosVisitante_Prorroga2 ?? 0);
 
         public Guid? GanadorId { get; private set; }
         public Equipo? Ganador { get; private set; }
@@ -66,7 +68,8 @@ namespace OrganizadorCampeonato.Dominio.Entidades
             decimal? puntosLocal_P2, decimal? puntosVisitante_P2,
             decimal? puntosLocal_P3, decimal? puntosVisitante_P3,
             decimal? puntosLocal_P4, decimal? puntosVisitante_P4,
-            decimal? puntosLocal_Prorroga, decimal? puntosVisitante_Prorroga)
+            decimal? puntosLocal_Prorroga, decimal? puntosVisitante_Prorroga,
+            decimal? puntosLocal_Prorroga2, decimal? puntosVisitante_Prorroga2)
         {
             PuntosLocal_P1 = puntosLocal_P1;
             PuntosVisitante_P1 = puntosVisitante_P1;
@@ -78,6 +81,8 @@ namespace OrganizadorCampeonato.Dominio.Entidades
             PuntosVisitante_P4 = puntosVisitante_P4;
             PuntosLocal_Prorroga = puntosLocal_Prorroga;
             PuntosVisitante_Prorroga = puntosVisitante_Prorroga;
+            PuntosLocal_Prorroga2 = puntosLocal_Prorroga2;
+            PuntosVisitante_Prorroga2 = puntosVisitante_Prorroga2;
         }
 
         public void MarcarComoCompletado(Guid? ganadorId)

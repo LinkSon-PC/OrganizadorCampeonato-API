@@ -26,6 +26,8 @@ namespace OrganizadorCampeonato.Persistencia.Configuraciones
             builder.Property(p => p.PuntosVisitante_P4).HasPrecision(5, 0);
             builder.Property(p => p.PuntosLocal_Prorroga).HasPrecision(5, 0);
             builder.Property(p => p.PuntosVisitante_Prorroga).HasPrecision(5, 0);
+            builder.Property(p => p.PuntosLocal_Prorroga2).HasPrecision(5, 0);
+            builder.Property(p => p.PuntosVisitante_Prorroga2).HasPrecision(5, 0);
 
             builder.HasOne(p => p.Torneo)
                 .WithMany(t => t.Partidos)
