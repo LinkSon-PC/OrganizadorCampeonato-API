@@ -53,6 +53,7 @@ namespace OrganizadorCampeonato.Persistencia
         public DbSet<Partido> Partidos { get; set; }
         public DbSet<PartidoEquipo> PartidoEquipos { get; set; }
         public DbSet<PartidoArbitro> PartidoArbitros { get; set; }
+        public DbSet<ResultadoPeriodo> ResultadosPeriodos { get; set; }
         public DbSet<EquipoJugador> EquipoJugadores { get; set; }
     }
 }

@@ -50,6 +50,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         public Torneo? Torneo { get; private set; }
         public List<PartidoEquipo> PartidoEquipos { get; private set; } = new();
         public List<PartidoArbitro> PartidoArbitros { get; private set; } = new();
+        public List<ResultadoPeriodo> ResultadosPeriodos { get; private set; } = new();
 
         public void ValidarFechaHora(DateTime fechaHora)
         {
@@ -96,6 +97,30 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         public void MarcarComoCancelada()
         {
             Estado = EstadoPartido.Cancelada;
+        }
+
+        public Guid? ObtenerGanadorPeriodo(TipoPeriodo periodo, Guid equipoLocalId, Guid equipoVisitanteId)
+        {
+            var (puntosLocal, puntosVisitante) = periodo switch
+            {
+                TipoPeriodo.P1 => (PuntosLocal_P1, PuntosVisitante_P1),
+                TipoPeriodo.P2 => (PuntosLocal_P2, PuntosVisitante_P2),
+                TipoPeriodo.P3 => (PuntosLocal_P3, PuntosVisitante_P3),
+                TipoPeriodo.P4 => (PuntosLocal_P4, PuntosVisitante_P4),
+                TipoPeriodo.Prorroga => (PuntosLocal_Prorroga, PuntosVisitante_Prorroga),
+                TipoPeriodo.Prorroga2 => (PuntosLocal_Prorroga2, PuntosVisitante_Prorroga2),
+                _ => (null, null)
+            };
+
+            if (!puntosLocal.HasValue || !puntosVisitante.HasValue)
+                return null;
+
+            if (puntosLocal > puntosVisitante)
+                return equipoLocalId;
+            else if (puntosVisitante > puntosLocal)
+                return equipoVisitanteId;
+            else
+                return null;
         }
     }
 }
