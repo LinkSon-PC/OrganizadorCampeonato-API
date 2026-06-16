@@ -19,32 +19,13 @@ namespace OrganizadorCampeonato.Dominio.Entidades
             Estado = EstadoInscripcion.Inscrito;
         }
 
-        public Guid TorneoId { get; private set; }
-        public Guid EquipoId { get; private set; }
-        public DateTime FechaInscripcion { get; private set; }
-        public EstadoInscripcion Estado { get; private set; }
-        public int? Posicion { get; private set; }
+        public Guid TorneoId { get; init; }
+        public Guid EquipoId { get; init; }
+        public DateTime FechaInscripcion { get; init; }
+        public EstadoInscripcion Estado { get; init; }
+        public int? Posicion { get; init; }
 
-        public Torneo Torneo { get; private set; } = null!;
-        public Equipo Equipo { get; private set; } = null!;
-
-        public void MarcarEliminado()
-        {
-            if (Estado == EstadoInscripcion.Campeon)
-                throw new ExcepcionReglaDeNegocio("No se puede eliminar a un equipo campeón");
-            Estado = EstadoInscripcion.Eliminado;
-        }
-
-        public void MarcarCampeon()
-        {
-            if (Estado == EstadoInscripcion.Eliminado)
-                throw new ExcepcionReglaDeNegocio("No se puede nombrar campeón a un equipo eliminado");
-            Estado = EstadoInscripcion.Campeon;
-        }
-
-        public void ActualizarPosicion(int? posicion)
-        {
-            Posicion = posicion;
-        }
+        public Torneo Torneo { get; init; } = null!;
+        public Equipo Equipo { get; init; } = null!;
     }
 }

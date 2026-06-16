@@ -18,6 +18,13 @@ namespace OrganizadorCampeonato.Persistencia.Repositorios
             this.context = context;
         }
 
+        new public async Task<Jugador?> ObtenerPorId(Guid id)
+        {
+            return await context.Jugadores
+                .Include(j => j.Persona)
+                .FirstOrDefaultAsync(j => id == j.Id);
+        }
+
         public Task AsignarComoJugador(Guid Id)
         {
             context.Add(new Jugador(Id));

@@ -27,16 +27,16 @@ namespace OrganizadorCampeonato.Dominio.Entidades
             FechaFin = fin;
         }
 
-        public string Nombre { get; private set; }
-        public string Lugar { get; private set; }
-        public string? Descripcion { get; private set; }
-        public Guid CategoriaId { get; private set; }
-        public FormatoTorneo Formato {  get; private set; }
-        public DateTime FechaInicio { get; private set; }
-        public DateTime FechaFin { get; private set; }
-        public Categoria? Categoria { get; private set; }
-        public List<TorneoEquipo> TorneoEquipos { get; private set; } = new();
-        public List<Partido> Partidos { get; private set; } = new();
+        public string Nombre { get; init; }
+        public string Lugar { get; init; }
+        public string? Descripcion { get; init; }
+        public Guid CategoriaId { get; init; }
+        public FormatoTorneo Formato {  get; init; }
+        public DateTime FechaInicio { get; init; }
+        public DateTime FechaFin { get; init; }
+        public Categoria? Categoria { get; init; }
+        public List<TorneoEquipo> TorneoEquipos { get; init; } = new();
+        public List<Partido> Partidos { get; init; } = new();
 
 
         private void ValidarNombre(string nombre)

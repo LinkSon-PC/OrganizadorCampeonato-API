@@ -23,34 +23,34 @@ namespace OrganizadorCampeonato.Dominio.Entidades
             Estado = EstadoPartido.Programada;
         }
 
-        public DateTime FechaHora { get; private set; }
-        public string Lugar { get; private set; } = null!;
-        public Guid TorneoId { get; private set; }
-        public int Ronda { get; private set; }
-        public string? Grupo { get; private set; }
-        public EstadoPartido Estado { get; private set; }
-        public decimal? PuntosLocal_P1 { get; private set; }
-        public decimal? PuntosVisitante_P1 { get; private set; }
-        public decimal? PuntosLocal_P2 { get; private set; }
-        public decimal? PuntosVisitante_P2 { get; private set; }
-        public decimal? PuntosLocal_P3 { get; private set; }
-        public decimal? PuntosVisitante_P3 { get; private set; }
-        public decimal? PuntosLocal_P4 { get; private set; }
-        public decimal? PuntosVisitante_P4 { get; private set; }
-        public decimal? PuntosLocal_Prorroga { get; private set; }
-        public decimal? PuntosVisitante_Prorroga { get; private set; }
-        public decimal? PuntosLocal_Prorroga2 { get; private set; }
-        public decimal? PuntosVisitante_Prorroga2 { get; private set; }
+        public DateTime FechaHora { get; init; }
+        public string Lugar { get; init; } = null!;
+        public Guid TorneoId { get; init; }
+        public int Ronda { get; init; }
+        public string? Grupo { get; init; }
+        public EstadoPartido Estado { get; init; }
+        public decimal? PuntosLocal_P1 { get; init; }
+        public decimal? PuntosVisitante_P1 { get; init; }
+        public decimal? PuntosLocal_P2 { get; init; }
+        public decimal? PuntosVisitante_P2 { get; init; }
+        public decimal? PuntosLocal_P3 { get; init; }
+        public decimal? PuntosVisitante_P3 { get; init; }
+        public decimal? PuntosLocal_P4 { get; init; }
+        public decimal? PuntosVisitante_P4 { get; init; }
+        public decimal? PuntosLocal_Prorroga { get; init; }
+        public decimal? PuntosVisitante_Prorroga { get; init; }
+        public decimal? PuntosLocal_Prorroga2 { get; init; }
+        public decimal? PuntosVisitante_Prorroga2 { get; init; }
         public decimal PuntosLocal => (PuntosLocal_P1 ?? 0) + (PuntosLocal_P2 ?? 0) + (PuntosLocal_P3 ?? 0) + (PuntosLocal_P4 ?? 0) + (PuntosLocal_Prorroga ?? 0) + (PuntosLocal_Prorroga2 ?? 0);
         public decimal PuntosVisitante => (PuntosVisitante_P1 ?? 0) + (PuntosVisitante_P2 ?? 0) + (PuntosVisitante_P3 ?? 0) + (PuntosVisitante_P4 ?? 0) + (PuntosVisitante_Prorroga ?? 0) + (PuntosVisitante_Prorroga2 ?? 0);
 
-        public Guid? GanadorId { get; private set; }
-        public Equipo? Ganador { get; private set; }
+        public Guid? GanadorId { get; init; }
+        public Equipo? Ganador { get; init; }
 
-        public Torneo? Torneo { get; private set; }
-        public List<PartidoEquipo> PartidoEquipos { get; private set; } = new();
-        public List<PartidoArbitro> PartidoArbitros { get; private set; } = new();
-        public List<ResultadoPeriodo> ResultadosPeriodos { get; private set; } = new();
+        public Torneo? Torneo { get; init; }
+        public List<PartidoEquipo> PartidoEquipos { get; init; } = new();
+        public List<PartidoArbitro> PartidoArbitros { get; init; } = new();
+        public List<ResultadoPeriodo> ResultadosPeriodos { get; init; } = new();
 
         public void ValidarFechaHora(DateTime fechaHora)
         {
@@ -62,47 +62,6 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         {
             if (string.IsNullOrWhiteSpace(lugar))
                 throw new ExcepcionReglaDeNegocio("El lugar es requerido");
-        }
-
-        public void ActualizarPuntuacion(
-            decimal? puntosLocal_P1, decimal? puntosVisitante_P1,
-            decimal? puntosLocal_P2, decimal? puntosVisitante_P2,
-            decimal? puntosLocal_P3, decimal? puntosVisitante_P3,
-            decimal? puntosLocal_P4, decimal? puntosVisitante_P4,
-            decimal? puntosLocal_Prorroga, decimal? puntosVisitante_Prorroga,
-            decimal? puntosLocal_Prorroga2, decimal? puntosVisitante_Prorroga2)
-        {
-            if (Estado != EstadoPartido.Programada)
-                throw new ExcepcionReglaDeNegocio("Solo se pueden actualizar puntuaciones de partidos programados");
-            PuntosLocal_P1 = puntosLocal_P1;
-            PuntosVisitante_P1 = puntosVisitante_P1;
-            PuntosLocal_P2 = puntosLocal_P2;
-            PuntosVisitante_P2 = puntosVisitante_P2;
-            PuntosLocal_P3 = puntosLocal_P3;
-            PuntosVisitante_P3 = puntosVisitante_P3;
-            PuntosLocal_P4 = puntosLocal_P4;
-            PuntosVisitante_P4 = puntosVisitante_P4;
-            PuntosLocal_Prorroga = puntosLocal_Prorroga;
-            PuntosVisitante_Prorroga = puntosVisitante_Prorroga;
-            PuntosLocal_Prorroga2 = puntosLocal_Prorroga2;
-            PuntosVisitante_Prorroga2 = puntosVisitante_Prorroga2;
-        }
-
-        public void MarcarComoCompletado(Guid? ganadorId)
-        {
-            if (Estado == EstadoPartido.Cancelada || Estado == EstadoPartido.Completada)
-                throw new ExcepcionReglaDeNegocio("No se puede completar un partido cancelado o ya completado");
-            if (ganadorId == Guid.Empty)
-                throw new ExcepcionReglaDeNegocio("Debe especificar el equipo ganador");
-            GanadorId = ganadorId;
-            Estado = EstadoPartido.Completada;
-        }
-
-        public void MarcarComoCancelada()
-        {
-            if (Estado == EstadoPartido.Completada)
-                throw new ExcepcionReglaDeNegocio("No se puede cancelar un partido completado");
-            Estado = EstadoPartido.Cancelada;
         }
 
         public Guid? ObtenerGanadorPeriodo(TipoPeriodo periodo, Guid equipoLocalId, Guid equipoVisitanteId)

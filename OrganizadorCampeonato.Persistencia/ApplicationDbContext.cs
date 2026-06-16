@@ -32,10 +32,10 @@ namespace OrganizadorCampeonato.Persistencia
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.FechaCreacion = DateTime.UtcNow;
+                        entry.Property("FechaCreacion").CurrentValue = DateTime.UtcNow;
                         break;
                     case EntityState.Modified:
-                        entry.Entity.UltimaFechaModificacion = DateTime.UtcNow;
+                        entry.Property("UltimaFechaModificacion").CurrentValue = DateTime.UtcNow;
                         break;
                 }
             }

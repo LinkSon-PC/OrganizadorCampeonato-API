@@ -14,11 +14,11 @@ namespace OrganizadorCampeonato.Dominio.Entidades
             Rol = rol;
         }
 
-        public Guid PartidoId { get; private set; }
-        public Guid ArbitroId { get; private set; }
-        public string? Rol { get; private set; }
+        public Guid PartidoId { get; init; }
+        public Guid ArbitroId { get; init; }
+        public string? Rol { get; init; }
 
-        public Partido Partido { get; private set; } = null!;
-        public Arbitro Arbitro { get; private set; } = null!;
+        public Partido Partido { get; init; } = null!;
+        public Arbitro Arbitro { get; init; } = null!;
     }
 }

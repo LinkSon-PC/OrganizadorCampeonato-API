@@ -27,8 +27,8 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Equipos.Comandos.Actualiza
 
         public async Task Handle(ComandoActualizarEquipo request)
         {
-            var equipo = await repositorioEquipo.ObtenerPorId(request.Id);
-            if (equipo is null)
+            var equipoExistente = await repositorioEquipo.ObtenerPorId(request.Id);
+            if (equipoExistente is null)
                 throw new ExcepcionDeValidacion("No se encotró equipo");
 
             if (request.EntrenadorId != null)
@@ -39,13 +39,16 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Equipos.Comandos.Actualiza
 
             }
 
-            equipo.ActualizarNombre(request.Nombre);
-            equipo.ActualizarEntrenadorId(request.EntrenadorId);
-            equipo.ActualizarCategoria(request.CategoriaId);
+            var equipoActualizado = new Equipo(
+                request.Id,
+                request.Nombre,
+                request.EntrenadorId,
+                request.CategoriaId
+            );
 
             try
             {
-                await repositorioEquipo.Actualizar(equipo);
+                await repositorioEquipo.Actualizar(equipoActualizado);
                 await unidadDeTrabajo.Persistir();
             }
             catch (Exception)

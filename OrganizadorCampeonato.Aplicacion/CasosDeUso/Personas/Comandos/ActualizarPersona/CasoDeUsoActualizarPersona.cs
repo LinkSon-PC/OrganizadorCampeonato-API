@@ -2,6 +2,7 @@
 using OrganizadorCampeonato.Aplicacion.Contratos.Persistencia;
 using OrganizadorCampeonato.Aplicacion.Contratos.Repositorios;
 using OrganizadorCampeonato.Aplicacion.Excepciones;
+using OrganizadorCampeonato.Dominio.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,19 +24,23 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Comandos.Actualiz
 
         public async Task Handle(ComandoActualizarPersona request)
         {
-            var persona = await repositorio.ObtenerPorId(request.Id);
-            if (persona is null)
+            var personaExistente = await repositorio.ObtenerPorId(request.Id);
+            if (personaExistente is null)
                 throw new ExcepcionDeValidacion("No se encontró la persona");
 
-            persona.SetNombres(request.Nombres);
-            persona.SetApellidos(request.Apellidos);
-            persona.SetIdentificacion(request.Identificacion);
-            persona.SetFechaNacimiento(request.FechaNaciemiento);
-            persona.SetTelefono(request.Telefono);
+            var personaActualizada = new Persona(
+                request.Id,
+                request.Identificacion,
+                request.Nombres,
+                request.Apellidos,
+                request.FechaNaciemiento,
+                request.Telefono ?? string.Empty,
+                request.Genero
+            );
 
             try
             {
-                await repositorio.Actualizar(persona);
+                await repositorio.Actualizar(personaActualizada);
                 await unidadDeTrabajo.Persistir();
             }
             catch (Exception)

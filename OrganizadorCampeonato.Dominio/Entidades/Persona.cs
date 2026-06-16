@@ -12,15 +12,15 @@ namespace OrganizadorCampeonato.Dominio.Entidades
 {
     public class Persona : EntidadAuditable<Guid>
     {
-        public string Identificacion { get; private set; }
-        public string Nombres { get; private set; }
-        public string Apellidos { get; private set; }
-        public DateTime FechaNacimiento { get; private set; }
-        public TipoGenero Genero { get; private set; }
-        public string? Telefono { get; private set; }
-        public Jugador? Jugador { get; private set; } = null;
-        public Entrenador? Entrenador { get; private set; } = null;
-        public Arbitro? Arbitro { get; private set; } = null;
+        public string Identificacion { get; init; }
+        public string Nombres { get; init; }
+        public string Apellidos { get; init; }
+        public DateTime FechaNacimiento { get; init; }
+        public TipoGenero Genero { get; init; }
+        public string? Telefono { get; init; }
+        public Jugador? Jugador { get; init; } = null;
+        public Entrenador? Entrenador { get; init; } = null;
+        public Arbitro? Arbitro { get; init; } = null;
 
         private Persona() { }
 
@@ -69,31 +69,5 @@ namespace OrganizadorCampeonato.Dominio.Entidades
                 throw new ExcepcionReglaDeNegocio("Debe ingresar un número de teléfono válido");
         }
 
-        public void SetIdentificacion(string identificacion)
-        {
-            ValidarIdentificacion(identificacion);
-            Identificacion = identificacion;
-        }
-        public void SetNombres(string nombres)
-        {
-            ValidarNombres(nombres);
-            Nombres = nombres;
-        }
-        public void SetApellidos(string apellidos)
-        {
-            ValidarApellidos(apellidos);
-            Apellidos = apellidos;
-        }
-        public void SetTelefono(string? telefono)
-        {
-            ValidarTelefono(telefono);
-            Telefono = telefono;
-        }
-        public void SetFechaNacimiento(DateTime fechaNacimiento)
-        {
-            if (fechaNacimiento > DateTime.UtcNow)
-                throw new ExcepcionReglaDeNegocio("La fecha de nacimiento no puede ser futura");
-            FechaNacimiento = fechaNacimiento;
-        }
     }
 }

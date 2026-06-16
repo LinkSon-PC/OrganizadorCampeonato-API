@@ -20,22 +20,12 @@ namespace OrganizadorCampeonato.Dominio.Entidades
             EstaActivo = true;
         }
 
-        public Guid EquipoId { get; private set; }
-        public Guid JugadorId { get; private set; }
-        public DateTime FechaIncorporacion { get; private set; }
-        public bool EstaActivo { get; private set; }
+        public Guid EquipoId { get; init; }
+        public Guid JugadorId { get; init; }
+        public DateTime FechaIncorporacion { get; init; }
+        public bool EstaActivo { get; init; }
 
-        public Equipo Equipo { get; private set; } = null!;
-        public Jugador Jugador { get; private set; } = null!;
-
-        public void Desactivar()
-        {
-            EstaActivo = false;
-        }
-
-        public void Activar()
-        {
-            EstaActivo = true;
-        }
+        public Equipo Equipo { get; init; } = null!;
+        public Jugador Jugador { get; init; } = null!;
     }
 }

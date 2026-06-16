@@ -15,11 +15,11 @@ namespace OrganizadorCampeonato.Dominio.Entidades
             EquipoId = equipoId;
         }
 
-        public Guid PartidoId { get; private set; }
-        public TipoPeriodo Periodo { get; private set; }
-        public Guid EquipoId { get; private set; }
+        public Guid PartidoId { get; init; }
+        public TipoPeriodo Periodo { get; init; }
+        public Guid EquipoId { get; init; }
 
-        public Partido Partido { get; private set; } = null!;
-        public Equipo Equipo { get; private set; } = null!;
+        public Partido Partido { get; init; } = null!;
+        public Equipo Equipo { get; init; } = null!;
     }
 }
