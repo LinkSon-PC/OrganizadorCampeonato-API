@@ -17,10 +17,10 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Equipos.Consultas.ObtenerT
             this.repositorio = repositorio;
         }
 
-        public Task<List<ListadoEquiposDTO>> Handle(ConsultaObtenerTodosEquipos request)
+        public async Task<List<ListadoEquiposDTO>> Handle(ConsultaObtenerTodosEquipos request)
         {
-            var equipos = repositorio.ObtenerTodos().Result.Select(e => e.ADto()).ToList();
-            return Task.FromResult(equipos);
+            var equipos = await repositorio.ObtenerTodos();
+            return equipos.Select(e => e.ADto()).ToList();
         }
     }
 }

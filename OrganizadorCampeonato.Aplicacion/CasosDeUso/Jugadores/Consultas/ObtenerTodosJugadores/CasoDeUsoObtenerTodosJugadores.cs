@@ -17,12 +17,11 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Jugadores.Consultas.Obtene
             this.repositorio = repositorio;
         }
 
-        public Task<List<JugadorDTO>> Handle(ConsultaObtenerTodosJugadores request)
+        public async Task<List<JugadorDTO>> Handle(ConsultaObtenerTodosJugadores request)
         {
-            var jugadores = repositorio.ObtenerTodosJugadores().Result
-                .Select(x => x.ADto()).ToList();
+            var jugadores = await repositorio.ObtenerTodosJugadores();
 
-            return Task.FromResult(jugadores);
+            return jugadores.Select(x => x.ADto()).ToList();
         }
     }
 }

@@ -17,11 +17,10 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Entrenadores.Consultas.Obt
             this.repositorio = repositorio;
         }
 
-        public Task<List<ListadoEntrenadorDTO>> Handle(ConsultaObtenerTodosEntrenadores request)
+        public async Task<List<ListadoEntrenadorDTO>> Handle(ConsultaObtenerTodosEntrenadores request)
         {
-            var personas = repositorio.ObtenerTodosEntrenadores().Result
-                .Select(p => p.Persona.ADto()).ToList();
-            return Task.FromResult(personas);
+            var personas = await repositorio.ObtenerTodosEntrenadores();
+            return personas.Select(p => p.Persona.ADto()).ToList();
         }
     }
 }
