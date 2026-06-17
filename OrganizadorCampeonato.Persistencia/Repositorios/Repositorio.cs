@@ -11,6 +11,7 @@ namespace OrganizadorCampeonato.Persistencia.Repositorios
 {
     public class Repositorio<T, TId> : IGenericRepository<T, TId>
         where T: EntidadAuditable<TId>
+        where TId : struct
     {
         private readonly ApplicationDbContext context;
 

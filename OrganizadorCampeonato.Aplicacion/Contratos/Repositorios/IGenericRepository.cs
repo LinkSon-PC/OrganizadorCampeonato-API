@@ -9,6 +9,7 @@ namespace OrganizadorCampeonato.Aplicacion.Contratos.Repositorios
 {
     public interface IGenericRepository<T, TId>
         where T : EntidadAuditable<TId>
+        where TId : struct
     {
         Task<T> Agregar(T entidad);
         Task<T?> ObtenerPorId(TId id);
