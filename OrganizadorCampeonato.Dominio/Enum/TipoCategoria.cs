@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OrganizadorCampeonato.Dominio.Enum
+﻿namespace OrganizadorCampeonato.Dominio.Enum
 {
     public enum TipoCategoria
     {
-        U18 = 0,
-        Senior = 1,
-        Libre = 2
+        U12 = 1,
+        U14 = 2,
+        U16 = 3,
+        U18 = 4,
+        U20 = 5,
+        Senior = 6,
+        Libre = 7,
+        Masters35 = 8,
+        Masters40 = 9,
+        Masters45 = 10
     }
 }

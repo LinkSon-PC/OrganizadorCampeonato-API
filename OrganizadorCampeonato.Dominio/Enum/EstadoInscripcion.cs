@@ -2,8 +2,10 @@ namespace OrganizadorCampeonato.Dominio.Enum
 {
     public enum EstadoInscripcion
     {
-        Inscrito = 1,
-        Eliminado = 2,
-        Campeon = 3
+        Pendiente = 1,
+        Inscrito = 2,
+        Eliminado = 3,
+        Campeon = 4,
+        Retirado = 5
     }
 }

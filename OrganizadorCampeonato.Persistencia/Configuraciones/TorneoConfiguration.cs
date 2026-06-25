@@ -2,10 +2,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OrganizadorCampeonato.Dominio.Entidades;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OrganizadorCampeonato.Persistencia.Configuraciones
 {
@@ -23,6 +19,15 @@ namespace OrganizadorCampeonato.Persistencia.Configuraciones
 
             builder.Property(p => p.Descripcion)
                 .HasMaxLength(250);
+
+            builder.HasOne(t => t.Categoria)
+                .WithMany(c => c.Torneos)
+                .HasForeignKey(t => t.CategoriaId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasIndex(t => t.CategoriaId);
+            builder.HasIndex(t => t.FechaInicio);
+            builder.HasIndex(t => t.Formato);
         }
     }
 }

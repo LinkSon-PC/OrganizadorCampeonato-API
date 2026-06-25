@@ -13,6 +13,7 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Torneos.Consultas.ObtenerT
                 Descripcion = entity.Descripcion,
                 CategoriaId = entity.CategoriaId,
                 Formato = entity.Formato,
+                Estado = entity.Estado,
                 FechaInicio = entity.FechaInicio,
                 FechaFin = entity.FechaFin,
                 FechaCreacion = entity.FechaCreacion,

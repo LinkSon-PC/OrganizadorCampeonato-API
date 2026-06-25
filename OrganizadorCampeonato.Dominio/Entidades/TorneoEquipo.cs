@@ -1,6 +1,5 @@
 ﻿using OrganizadorCampeonato.Dominio.Comunes;
 using OrganizadorCampeonato.Dominio.Enum;
-using OrganizadorCampeonato.Dominio.Excepciones;
 using System;
 using System.Collections.Generic;
 
@@ -16,7 +15,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
             EquipoId = equipoId;
             Posicion = posicion;
             FechaInscripcion = DateTime.UtcNow;
-            Estado = EstadoInscripcion.Inscrito;
+            Estado = EstadoInscripcion.Pendiente;
         }
 
         public Guid TorneoId { get; init; }
