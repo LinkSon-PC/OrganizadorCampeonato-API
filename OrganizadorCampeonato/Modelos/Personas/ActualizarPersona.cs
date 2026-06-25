@@ -2,13 +2,13 @@
 
 namespace OrganizadorCampeonato.Modelos.Personas
 {
-    public class ActualizarPersona
+    public record ActualizarPersona
     {
-        public required string Identificacion { get; set; }
-        public required string Nombres { get; set; }
-        public required string Apellidos { get; set; }
-        public DateTime FechaNacimiento { get; set; }
-        public required TipoGenero Genero { get; set; }
-        public string? Telefono { get; set; }
+        public required string Identificacion { get; init; }
+        public required string Nombres { get; init; }
+        public required string Apellidos { get; init; }
+        public DateTime FechaNacimiento { get; init; }
+        public required TipoGenero Genero { get; init; }
+        public string? Telefono { get; init; }
     }
 }

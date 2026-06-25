@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Comandos.ActualizarPersona;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Comandos.AgregarPersona;
+using OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Comandos.EliminarPersona;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.ObtenerPorId;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.Personas.Consultas.ObtenerTodos;
 using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
@@ -44,7 +44,7 @@ namespace OrganizadorCampeonato.Controllers
 
         // POST api/<PersonasController>
         [HttpPost]
-        public async Task<ActionResult<Guid>> Post([FromBody] AgregarJugadorDTO value)
+        public async Task<ActionResult<Guid>> Post([FromBody] AgregarPersonaDTO value)
         {
             var comando = new ComandoAgregarPersona
             {
@@ -76,10 +76,12 @@ namespace OrganizadorCampeonato.Controllers
             await mediator.Send(comando);
         }
 
-        // DELETE api/<PersonasController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{id:guid}")]
+        public async Task<ActionResult> Delete(Guid id)
         {
+            var comando = new ComandoEliminarPersona { Id = id };
+            await mediator.Send(comando);
+            return Ok();
         }
     }
 }

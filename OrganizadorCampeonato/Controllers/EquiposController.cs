@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.Equipos.Comandos.ActualizarEquipo;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.Equipos.Comandos.AgregarEquipo;
+using OrganizadorCampeonato.Aplicacion.CasosDeUso.Equipos.Comandos.EliminarEquipo;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.Equipos.Consultas.ObtenerEquipoPorId;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.Equipos.Consultas.ObtenerTodosEquipos;
 using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
@@ -52,7 +53,7 @@ namespace OrganizadorCampeonato.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult<Guid>> Post(Guid id, [FromBody] ActualizarEquipoDTO request)
+        public async Task<ActionResult> Put(Guid id, [FromBody] ActualizarEquipoDTO request)
         {
             var comando = new ComandoActualizarEquipo
             {
@@ -62,6 +63,14 @@ namespace OrganizadorCampeonato.Controllers
                 CategoriaId = request.CategoriaId
             };
 
+            await mediator.Send(comando);
+            return Ok();
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            var comando = new ComandoEliminarEquipo { Id = id };
             await mediator.Send(comando);
             return Ok();
         }

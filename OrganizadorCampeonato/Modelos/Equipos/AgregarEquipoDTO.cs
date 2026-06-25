@@ -6,6 +6,6 @@ namespace OrganizadorCampeonato.Modelos.Equipos
     {
         public required string Nombre { get; init; }
         public Guid? EntrenadorId { get; init; }
-        public Guid? CategoriaId { get; private set; }
+        public Guid? CategoriaId { get; init; }
     }
 }

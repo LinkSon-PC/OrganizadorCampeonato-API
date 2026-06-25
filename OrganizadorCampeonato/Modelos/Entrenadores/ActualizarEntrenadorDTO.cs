@@ -1,8 +1,8 @@
-﻿using OrganizadorCampeonato.Dominio.Enum;
+using OrganizadorCampeonato.Dominio.Enum;
 
-namespace OrganizadorCampeonato.Modelos.Jugadores
+namespace OrganizadorCampeonato.Modelos.Entrenadores
 {
-    public record AgregarJugadorDTO
+    public record ActualizarEntrenadorDTO
     {
         public required string Identificacion { get; init; }
         public required string Nombres { get; init; }
