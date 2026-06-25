@@ -1,0 +1,20 @@
+using OrganizadorCampeonato.Dominio.Enum;
+using System;
+
+namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Partidos.Consultas.ObtenerTodosPartidos
+{
+    public record ListadoPartidoDTO
+    {
+        public required Guid Id { get; init; }
+        public DateTime FechaHora { get; init; }
+        public required string Lugar { get; init; }
+        public required Guid TorneoId { get; init; }
+        public int Ronda { get; init; }
+        public string? Grupo { get; init; }
+        public EstadoPartido Estado { get; init; }
+        public decimal PuntosLocal { get; init; }
+        public decimal PuntosVisitante { get; init; }
+        public Guid? GanadorId { get; init; }
+        public DateTime FechaCreacion { get; init; }
+    }
+}

@@ -1,13 +1,10 @@
-﻿using OrganizadorCampeonato.Dominio.Enum;
+﻿using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
+using OrganizadorCampeonato.Dominio.Enum;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Torneos.Comandos.ActualizarTorneos
 {
-    public record ComandoActualizarTorneo
+    public record ComandoActualizarTorneo : IRequest
     {
         public required Guid Id { get; init; }
         public required string Nombre { get; init; }

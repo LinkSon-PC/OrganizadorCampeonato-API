@@ -1,3 +1,8 @@
+---
+name: csharp-dotnet-cqrs
+description: This skill generates complete CQRS use cases (commands, queries, handlers, DTOs, and mappers) for the OrganizadorCampeonato project following Clean Architecture and CQRS patterns.
+---
+
 # CQRS Use Case Generator Skill
 
 This skill generates complete CQRS use cases (commands, queries, handlers, DTOs, and mappers) for the OrganizadorCampeonato project following Clean Architecture and CQRS patterns.

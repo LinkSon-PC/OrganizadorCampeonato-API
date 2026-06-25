@@ -29,6 +29,9 @@ namespace OrganizadorCampeonato.Persistencia
             services.AddScoped<IRepositorioPartidoEquipo, RepositorioPartidoEquipo>();
             services.AddScoped<IRepositorioTorneoEquipo, RepositorioTorneoEquipo>();
             services.AddScoped<IRepositorioEquipoJugador, RepositorioEquipoJugador>();
+            services.AddScoped<IRepositorioPartidoArbitro, RepositorioPartidoArbitro>();
+            services.AddScoped<IRepositorioResultadoPeriodo, RepositorioResultadoPeriodo>();
+            services.AddScoped<IRepositorioArbitro, RepositorioArbitro>();
 
             return services;
         }
