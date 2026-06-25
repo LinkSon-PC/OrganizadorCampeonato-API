@@ -44,7 +44,9 @@ namespace OrganizadorCampeonato.Controllers
             {
                 PartidoId = dto.PartidoId,
                 Periodo = dto.Periodo,
-                EquipoId = dto.EquipoId
+                NumeroProrroga = dto.NumeroProrroga,
+                PuntosLocal = dto.PuntosLocal,
+                PuntosVisitante = dto.PuntosVisitante
             };
 
             var resultado = await mediator.Send(comando);
@@ -59,7 +61,9 @@ namespace OrganizadorCampeonato.Controllers
                 Id = id,
                 PartidoId = dto.PartidoId,
                 Periodo = dto.Periodo,
-                EquipoId = dto.EquipoId
+                NumeroProrroga = dto.NumeroProrroga,
+                PuntosLocal = dto.PuntosLocal,
+                PuntosVisitante = dto.PuntosVisitante
             };
 
             await mediator.Send(comando);

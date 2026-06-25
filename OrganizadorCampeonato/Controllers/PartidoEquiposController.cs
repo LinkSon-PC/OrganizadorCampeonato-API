@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.PartidoEquipos.Comandos.AgregarPartidoEquipo;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.PartidoEquipos.Comandos.ActualizarPartidoEquipo;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.PartidoEquipos.Comandos.EliminarPartidoEquipo;
-using OrganizadorCampeonato.Aplicacion.CasosDeUso.PartidoEquipos.Comandos.MarcarGanadorPartidoEquipo;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.PartidoEquipos.Consultas.ObtenerPartidoEquipoPorId;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.PartidoEquipos.Consultas.ObtenerTodosPartidoEquipos;
 using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
@@ -60,24 +59,7 @@ namespace OrganizadorCampeonato.Controllers
                 Id = id,
                 PartidoId = dto.PartidoId,
                 EquipoId = dto.EquipoId,
-                EsLocal = dto.EsLocal,
-                EsGanador = dto.EsGanador
-            };
-
-            await mediator.Send(comando);
-            return Ok();
-        }
-
-        [HttpPost("{id:guid}/marcar-ganador")]
-        public async Task<ActionResult> MarcarGanador(Guid id, [FromBody] MarcarGanadorDTO dto)
-        {
-            var comando = new ComandoMarcarGanadorPartidoEquipo
-            {
-                Id = id,
-                PartidoId = dto.PartidoId,
-                EquipoId = dto.EquipoId,
-                EsLocal = dto.EsLocal,
-                EsGanador = dto.EsGanador
+                EsLocal = dto.EsLocal
             };
 
             await mediator.Send(comando);

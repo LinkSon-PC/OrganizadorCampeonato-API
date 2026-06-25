@@ -1,5 +1,6 @@
 using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
 using OrganizadorCampeonato.Aplicacion.Contratos.Repositorios;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,10 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Partidos.Consultas.Obtener
         public async Task<List<ListadoPartidoDTO>> Handle(ConsultaObtenerTodosPartidos request)
         {
             var entities = await repositorio.ObtenerTodos();
-            return entities.Select(x => x.ADto()).ToList();
+            var partidosConPeriodos = await entities
+                .Include(p => p.ResultadosPeriodos)
+                .ToListAsync();
+            return partidosConPeriodos.Select(x => x.ADto()).ToList();
         }
     }
 }

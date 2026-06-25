@@ -19,7 +19,6 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         public Guid PartidoId { get; init; }
         public Guid EquipoId { get; init; }
         public bool EsLocal { get; init; }
-        public bool EsGanador { get; init; }
 
         public Partido Partido { get; init; } = null!;
         public Equipo Equipo { get; init; } = null!;

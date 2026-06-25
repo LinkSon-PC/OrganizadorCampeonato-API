@@ -31,7 +31,9 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.ResultadoPeriodos.Comandos
                 request.Id,
                 request.PartidoId,
                 request.Periodo,
-                request.EquipoId);
+                request.NumeroProrroga,
+                request.PuntosLocal,
+                request.PuntosVisitante);
 
             try
             {

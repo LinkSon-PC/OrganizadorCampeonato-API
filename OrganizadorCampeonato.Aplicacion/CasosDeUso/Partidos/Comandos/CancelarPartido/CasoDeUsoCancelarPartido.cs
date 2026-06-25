@@ -25,21 +25,21 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Partidos.Comandos.Cancelar
         {
             var partidoExistente = await repositorioPartido.ObtenerPorId(request.Id);
             if (partidoExistente is null)
-                throw new ExcepcionDeValidacion("No se encontró el partido");
+                throw new ExcepcionDeValidacion("No se encontro el partido");
 
             if (partidoExistente.Estado == EstadoPartido.Completada)
                 throw new ExcepcionReglaDeNegocio("No se puede cancelar un partido completado");
 
             if (partidoExistente.Estado == EstadoPartido.Cancelada)
-                throw new ExcepcionReglaDeNegocio("El partido ya está cancelado");
+                throw new ExcepcionReglaDeNegocio("El partido ya esta cancelado");
 
             var partidoCancelado = new Partido(
                 request.Id,
-                request.FechaHora,
-                request.Lugar,
-                request.TorneoId,
-                request.Ronda,
-                request.Grupo ?? string.Empty
+                partidoExistente.FechaHora,
+                partidoExistente.Lugar,
+                partidoExistente.TorneoId,
+                partidoExistente.Ronda,
+                partidoExistente.Grupo ?? string.Empty
             )
             {
                 Estado = EstadoPartido.Cancelada

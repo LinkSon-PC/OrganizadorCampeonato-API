@@ -8,18 +8,21 @@ namespace OrganizadorCampeonato.Dominio.Entidades
     {
         private ResultadoPeriodo() { }
 
-        public ResultadoPeriodo(Guid id, Guid partidoId, TipoPeriodo periodo, Guid equipoId) : base(id)
+        public ResultadoPeriodo(Guid id, Guid partidoId, TipoPeriodo periodo, int numeroProrroga, int puntosLocal, int puntosVisitante) : base(id)
         {
             PartidoId = partidoId;
             Periodo = periodo;
-            EquipoId = equipoId;
+            NumeroProrroga = numeroProrroga;
+            PuntosLocal = puntosLocal;
+            PuntosVisitante = puntosVisitante;
         }
 
         public Guid PartidoId { get; init; }
         public TipoPeriodo Periodo { get; init; }
-        public Guid EquipoId { get; init; }
+        public int NumeroProrroga { get; init; }
+        public int PuntosLocal { get; init; }
+        public int PuntosVisitante { get; init; }
 
         public Partido Partido { get; init; } = null!;
-        public Equipo Equipo { get; init; } = null!;
     }
 }

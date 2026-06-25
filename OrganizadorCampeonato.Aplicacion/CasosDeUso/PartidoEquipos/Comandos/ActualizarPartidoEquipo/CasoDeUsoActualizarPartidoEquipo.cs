@@ -31,10 +31,7 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.PartidoEquipos.Comandos.Ac
                 request.Id,
                 request.PartidoId,
                 request.EquipoId,
-                request.EsLocal)
-            {
-                EsGanador = request.EsGanador
-            };
+                request.EsLocal);
 
             try
             {

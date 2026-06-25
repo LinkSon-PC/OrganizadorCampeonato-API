@@ -10,7 +10,9 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.ResultadoPeriodos.Consulta
                 Id = entity.Id,
                 PartidoId = entity.PartidoId,
                 Periodo = entity.Periodo,
-                EquipoId = entity.EquipoId,
+                NumeroProrroga = entity.NumeroProrroga,
+                PuntosLocal = entity.PuntosLocal,
+                PuntosVisitante = entity.PuntosVisitante,
                 FechaCreacion = entity.FechaCreacion
             };
     }

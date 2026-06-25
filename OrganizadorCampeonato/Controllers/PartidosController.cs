@@ -55,48 +55,17 @@ namespace OrganizadorCampeonato.Controllers
         }
 
         [HttpPost("{id:guid}/completar")]
-        public async Task<ActionResult> Completar(Guid id, [FromBody] CompletarPartidoDTO dto)
+        public async Task<ActionResult> Completar(Guid id)
         {
-            var comando = new ComandoCompletarPartido
-            {
-                Id = id,
-                FechaHora = dto.FechaHora,
-                Lugar = dto.Lugar,
-                TorneoId = dto.TorneoId,
-                Ronda = dto.Ronda,
-                Grupo = dto.Grupo,
-                GanadorId = dto.GanadorId,
-                PuntosLocal_P1 = dto.PuntosLocal_P1,
-                PuntosVisitante_P1 = dto.PuntosVisitante_P1,
-                PuntosLocal_P2 = dto.PuntosLocal_P2,
-                PuntosVisitante_P2 = dto.PuntosVisitante_P2,
-                PuntosLocal_P3 = dto.PuntosLocal_P3,
-                PuntosVisitante_P3 = dto.PuntosVisitante_P3,
-                PuntosLocal_P4 = dto.PuntosLocal_P4,
-                PuntosVisitante_P4 = dto.PuntosVisitante_P4,
-                PuntosLocal_Prorroga = dto.PuntosLocal_Prorroga,
-                PuntosVisitante_Prorroga = dto.PuntosVisitante_Prorroga,
-                PuntosLocal_Prorroga2 = dto.PuntosLocal_Prorroga2,
-                PuntosVisitante_Prorroga2 = dto.PuntosVisitante_Prorroga2
-            };
-
+            var comando = new ComandoCompletarPartido { Id = id };
             await mediator.Send(comando);
             return Ok();
         }
 
         [HttpPost("{id:guid}/cancelar")]
-        public async Task<ActionResult> Cancelar(Guid id, [FromBody] CompletarPartidoDTO dto)
+        public async Task<ActionResult> Cancelar(Guid id)
         {
-            var comando = new ComandoCancelarPartido
-            {
-                Id = id,
-                FechaHora = dto.FechaHora,
-                Lugar = dto.Lugar,
-                TorneoId = dto.TorneoId,
-                Ronda = dto.Ronda,
-                Grupo = dto.Grupo
-            };
-
+            var comando = new ComandoCancelarPartido { Id = id };
             await mediator.Send(comando);
             return Ok();
         }

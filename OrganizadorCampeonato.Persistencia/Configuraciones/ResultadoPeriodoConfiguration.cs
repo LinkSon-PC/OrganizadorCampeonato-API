@@ -14,12 +14,7 @@ namespace OrganizadorCampeonato.Persistencia.Configuraciones
                 .HasForeignKey(rp => rp.PartidoId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasOne(rp => rp.Equipo)
-                .WithMany()
-                .HasForeignKey(rp => rp.EquipoId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.HasIndex(rp => new { rp.PartidoId, rp.Periodo }).IsUnique();
+            builder.HasIndex(rp => new { rp.PartidoId, rp.Periodo, rp.NumeroProrroga }).IsUnique();
         }
     }
 }

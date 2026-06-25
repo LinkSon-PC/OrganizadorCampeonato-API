@@ -3,6 +3,8 @@ using OrganizadorCampeonato.Dominio.Enum;
 using OrganizadorCampeonato.Dominio.Excepciones;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace OrganizadorCampeonato.Dominio.Entidades
 {
@@ -29,23 +31,12 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         public int Ronda { get; init; }
         public string? Grupo { get; init; }
         public EstadoPartido Estado { get; init; }
-        public decimal? PuntosLocal_P1 { get; init; }
-        public decimal? PuntosVisitante_P1 { get; init; }
-        public decimal? PuntosLocal_P2 { get; init; }
-        public decimal? PuntosVisitante_P2 { get; init; }
-        public decimal? PuntosLocal_P3 { get; init; }
-        public decimal? PuntosVisitante_P3 { get; init; }
-        public decimal? PuntosLocal_P4 { get; init; }
-        public decimal? PuntosVisitante_P4 { get; init; }
-        public decimal? PuntosLocal_Prorroga { get; init; }
-        public decimal? PuntosVisitante_Prorroga { get; init; }
-        public decimal? PuntosLocal_Prorroga2 { get; init; }
-        public decimal? PuntosVisitante_Prorroga2 { get; init; }
-        public decimal PuntosLocal => (PuntosLocal_P1 ?? 0) + (PuntosLocal_P2 ?? 0) + (PuntosLocal_P3 ?? 0) + (PuntosLocal_P4 ?? 0) + (PuntosLocal_Prorroga ?? 0) + (PuntosLocal_Prorroga2 ?? 0);
-        public decimal PuntosVisitante => (PuntosVisitante_P1 ?? 0) + (PuntosVisitante_P2 ?? 0) + (PuntosVisitante_P3 ?? 0) + (PuntosVisitante_P4 ?? 0) + (PuntosVisitante_Prorroga ?? 0) + (PuntosVisitante_Prorroga2 ?? 0);
 
-        public Guid? GanadorId { get; init; }
-        public Equipo? Ganador { get; init; }
+        [NotMapped]
+        public int PuntosLocal => ResultadosPeriodos?.Sum(r => r.PuntosLocal) ?? 0;
+
+        [NotMapped]
+        public int PuntosVisitante => ResultadosPeriodos?.Sum(r => r.PuntosVisitante) ?? 0;
 
         public Torneo? Torneo { get; init; }
         public List<PartidoEquipo> PartidoEquipos { get; init; } = new();
@@ -62,30 +53,6 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         {
             if (string.IsNullOrWhiteSpace(lugar))
                 throw new ExcepcionReglaDeNegocio("El lugar es requerido");
-        }
-
-        public Guid? ObtenerGanadorPeriodo(TipoPeriodo periodo, Guid equipoLocalId, Guid equipoVisitanteId)
-        {
-            var (puntosLocal, puntosVisitante) = periodo switch
-            {
-                TipoPeriodo.P1 => (PuntosLocal_P1, PuntosVisitante_P1),
-                TipoPeriodo.P2 => (PuntosLocal_P2, PuntosVisitante_P2),
-                TipoPeriodo.P3 => (PuntosLocal_P3, PuntosVisitante_P3),
-                TipoPeriodo.P4 => (PuntosLocal_P4, PuntosVisitante_P4),
-                TipoPeriodo.Prorroga => (PuntosLocal_Prorroga, PuntosVisitante_Prorroga),
-                TipoPeriodo.Prorroga2 => (PuntosLocal_Prorroga2, PuntosVisitante_Prorroga2),
-                _ => (null, null)
-            };
-
-            if (!puntosLocal.HasValue || !puntosVisitante.HasValue)
-                return null;
-
-            if (puntosLocal > puntosVisitante)
-                return equipoLocalId;
-            else if (puntosVisitante > puntosLocal)
-                return equipoVisitanteId;
-            else
-                return null;
         }
     }
 }

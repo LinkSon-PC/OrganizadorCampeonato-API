@@ -12,18 +12,15 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.ResultadoPeriodos.Comandos
     {
         private readonly IRepositorioResultadoPeriodo repositorio;
         private readonly IRepositorioPartido repositorioPartido;
-        private readonly IRepositorioEquipo repositorioEquipo;
         private readonly IUnidadDeTrabajo unidadDeTrabajo;
 
         public CasoDeUsoAgregarResultadoPeriodo(
             IRepositorioResultadoPeriodo repositorio,
             IRepositorioPartido repositorioPartido,
-            IRepositorioEquipo repositorioEquipo,
             IUnidadDeTrabajo unidadDeTrabajo)
         {
             this.repositorio = repositorio;
             this.repositorioPartido = repositorioPartido;
-            this.repositorioEquipo = repositorioEquipo;
             this.unidadDeTrabajo = unidadDeTrabajo;
         }
 
@@ -33,15 +30,13 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.ResultadoPeriodos.Comandos
             if (partido is null)
                 throw new ExcepcionDeValidacion("No se encontro el partido");
 
-            var equipo = await repositorioEquipo.ObtenerPorId(request.EquipoId);
-            if (equipo is null)
-                throw new ExcepcionDeValidacion("No se encontro el equipo");
-
             var resultadoPeriodo = new ResultadoPeriodo(
                 Guid.CreateVersion7(),
                 request.PartidoId,
                 request.Periodo,
-                request.EquipoId);
+                request.NumeroProrroga,
+                request.PuntosLocal,
+                request.PuntosVisitante);
 
             try
             {

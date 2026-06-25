@@ -16,7 +16,6 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Partidos.Consultas.Obtener
                 Estado = entity.Estado,
                 PuntosLocal = entity.PuntosLocal,
                 PuntosVisitante = entity.PuntosVisitante,
-                GanadorId = entity.GanadorId,
                 FechaCreacion = entity.FechaCreacion
             };
     }

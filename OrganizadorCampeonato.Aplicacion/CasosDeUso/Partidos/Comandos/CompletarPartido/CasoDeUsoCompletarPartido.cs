@@ -5,7 +5,9 @@ using OrganizadorCampeonato.Aplicacion.Excepciones;
 using OrganizadorCampeonato.Dominio.Entidades;
 using OrganizadorCampeonato.Dominio.Enum;
 using OrganizadorCampeonato.Dominio.Excepciones;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Partidos.Comandos.CompletarPartido
@@ -23,39 +25,33 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Partidos.Comandos.Completa
 
         public async Task Handle(ComandoCompletarPartido request)
         {
-            var partidoExistente = await repositorioPartido.ObtenerPorId(request.Id);
+            var partidos = await repositorioPartido.ObtenerTodos();
+            var partidoExistente = await partidos
+                .Include(p => p.ResultadosPeriodos)
+                .FirstOrDefaultAsync(p => p.Id == request.Id);
+
             if (partidoExistente is null)
-                throw new ExcepcionDeValidacion("No se encontró el partido");
+                throw new ExcepcionDeValidacion("No se encontro el partido");
 
             if (partidoExistente.Estado == EstadoPartido.Cancelada)
                 throw new ExcepcionReglaDeNegocio("No se puede completar un partido cancelado");
 
             if (partidoExistente.Estado == EstadoPartido.Completada)
-                throw new ExcepcionReglaDeNegocio("El partido ya está completado");
+                throw new ExcepcionReglaDeNegocio("El partido ya esta completado");
+
+            if (!partidoExistente.ResultadosPeriodos.Any())
+                throw new ExcepcionReglaDeNegocio("El partido no tiene resultados de periodos registrados");
 
             var partidoCompletado = new Partido(
                 request.Id,
-                request.FechaHora,
-                request.Lugar,
-                request.TorneoId,
-                request.Ronda,
-                request.Grupo ?? string.Empty
+                partidoExistente.FechaHora,
+                partidoExistente.Lugar,
+                partidoExistente.TorneoId,
+                partidoExistente.Ronda,
+                partidoExistente.Grupo ?? string.Empty
             )
             {
-                Estado = EstadoPartido.Completada,
-                GanadorId = request.GanadorId,
-                PuntosLocal_P1 = request.PuntosLocal_P1,
-                PuntosVisitante_P1 = request.PuntosVisitante_P1,
-                PuntosLocal_P2 = request.PuntosLocal_P2,
-                PuntosVisitante_P2 = request.PuntosVisitante_P2,
-                PuntosLocal_P3 = request.PuntosLocal_P3,
-                PuntosVisitante_P3 = request.PuntosVisitante_P3,
-                PuntosLocal_P4 = request.PuntosLocal_P4,
-                PuntosVisitante_P4 = request.PuntosVisitante_P4,
-                PuntosLocal_Prorroga = request.PuntosLocal_Prorroga,
-                PuntosVisitante_Prorroga = request.PuntosVisitante_Prorroga,
-                PuntosLocal_Prorroga2 = request.PuntosLocal_Prorroga2,
-                PuntosVisitante_Prorroga2 = request.PuntosVisitante_Prorroga2
+                Estado = EstadoPartido.Completada
             };
 
             try

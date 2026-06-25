@@ -11,7 +11,6 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.PartidoEquipos.Consultas.O
                 PartidoId = entity.PartidoId,
                 EquipoId = entity.EquipoId,
                 EsLocal = entity.EsLocal,
-                EsGanador = entity.EsGanador,
                 FechaCreacion = entity.FechaCreacion,
                 UltimaFechaModificacion = entity.UltimaFechaModificacion
             };

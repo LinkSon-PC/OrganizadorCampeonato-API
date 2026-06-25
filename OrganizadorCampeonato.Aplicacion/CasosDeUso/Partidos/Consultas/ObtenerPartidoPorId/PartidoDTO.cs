@@ -12,9 +12,8 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Partidos.Consultas.Obtener
         public int Ronda { get; init; }
         public string? Grupo { get; init; }
         public EstadoPartido Estado { get; init; }
-        public decimal PuntosLocal { get; init; }
-        public decimal PuntosVisitante { get; init; }
-        public Guid? GanadorId { get; init; }
+        public int PuntosLocal { get; init; }
+        public int PuntosVisitante { get; init; }
         public DateTime FechaCreacion { get; init; }
         public DateTime? UltimaFechaModificacion { get; init; }
     }
