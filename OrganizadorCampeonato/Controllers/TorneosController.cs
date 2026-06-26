@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.Torneos.Comandos.AgregarTorneos;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.Torneos.Comandos.ActualizarTorneos;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.Torneos.Comandos.EliminarTorneo;
+using OrganizadorCampeonato.Aplicacion.CasosDeUso.Torneos.Comandos.GenerarFixtureGrupos;
+using OrganizadorCampeonato.Aplicacion.CasosDeUso.Torneos.Comandos.GenerarLlaveEliminatoria;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.Torneos.Consultas.ObtenerTorneoPorId;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.Torneos.Consultas.ObtenerTodosTorneos;
 using OrganizadorCampeonato.Aplicacion.Comunes.Mediator;
@@ -78,6 +80,34 @@ namespace OrganizadorCampeonato.Controllers
         public async Task<ActionResult> Delete(Guid id)
         {
             var comando = new ComandoEliminarTorneo { Id = id };
+            await mediator.Send(comando);
+            return Ok();
+        }
+
+        [HttpPost("{id:guid}/generar-fixture-grupos")]
+        public async Task<ActionResult> GenerarFixtureGrupos(Guid id, [FromBody] GenerarFixtureGruposDTO dto)
+        {
+            var comando = new ComandoGenerarFixtureGrupos
+            {
+                TorneoId = id,
+                FechaInicio = dto.FechaInicio,
+                Lugar = dto.Lugar
+            };
+
+            await mediator.Send(comando);
+            return Ok();
+        }
+
+        [HttpPost("{id:guid}/generar-llave-eliminatoria")]
+        public async Task<ActionResult> GenerarLlaveEliminatoria(Guid id, [FromBody] GenerarLlaveEliminatoriaDTO dto)
+        {
+            var comando = new ComandoGenerarLlaveEliminatoria
+            {
+                TorneoId = id,
+                FechaInicio = dto.FechaInicio,
+                Lugar = dto.Lugar
+            };
+
             await mediator.Send(comando);
             return Ok();
         }

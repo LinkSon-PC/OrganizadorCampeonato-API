@@ -14,6 +14,8 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.TorneoEquipos.Consultas.Ob
                 NombreEquipo = torneoEquipo.Equipo.Nombre,
                 FechaInscripcion = torneoEquipo.FechaInscripcion,
                 Posicion = torneoEquipo.Posicion,
+                Grupo = torneoEquipo.Grupo,
+                PosicionGrupo = torneoEquipo.PosicionGrupo,
                 Estado = torneoEquipo.Estado
             };
     }

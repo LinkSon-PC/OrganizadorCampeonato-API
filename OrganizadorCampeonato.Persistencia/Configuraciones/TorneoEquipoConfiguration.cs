@@ -19,7 +19,15 @@ namespace OrganizadorCampeonato.Persistencia.Configuraciones
                 .HasForeignKey(x => x.EquipoId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.Property(te => te.Grupo)
+                .HasMaxLength(4)
+                .IsRequired(false);
+
+            builder.Property(te => te.PosicionGrupo)
+                .IsRequired(false);
+
             builder.HasIndex(te => new { te.TorneoId, te.EquipoId }).IsUnique();
+            builder.HasIndex(te => new { te.TorneoId, te.Grupo });
         }
     }
 }

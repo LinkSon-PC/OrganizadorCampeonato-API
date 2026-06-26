@@ -9,11 +9,13 @@ namespace OrganizadorCampeonato.Dominio.Entidades
     {
         private TorneoEquipo() { }
 
-        public TorneoEquipo(Guid id, Guid torneoId, Guid equipoId, int? posicion = null) : base(id)
+        public TorneoEquipo(Guid id, Guid torneoId, Guid equipoId, int? posicion = null, string? grupo = null, int? posicionGrupo = null) : base(id)
         {
             TorneoId = torneoId;
             EquipoId = equipoId;
             Posicion = posicion;
+            Grupo = grupo;
+            PosicionGrupo = posicionGrupo;
             FechaInscripcion = DateTime.UtcNow;
             Estado = EstadoInscripcion.Pendiente;
         }
@@ -23,6 +25,8 @@ namespace OrganizadorCampeonato.Dominio.Entidades
         public DateTime FechaInscripcion { get; init; }
         public EstadoInscripcion Estado { get; init; }
         public int? Posicion { get; init; }
+        public string? Grupo { get; init; }
+        public int? PosicionGrupo { get; init; }
 
         public Torneo Torneo { get; init; } = null!;
         public Equipo Equipo { get; init; } = null!;

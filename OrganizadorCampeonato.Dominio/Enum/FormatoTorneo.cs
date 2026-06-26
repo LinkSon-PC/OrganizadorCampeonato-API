@@ -10,6 +10,6 @@ namespace OrganizadorCampeonato.Dominio.Enum
     {
         Liga = 1,
         EliminacionDirecta = 2,
-        Grupos = 3
+        GruposMasEliminatoria = 3
     }
 }

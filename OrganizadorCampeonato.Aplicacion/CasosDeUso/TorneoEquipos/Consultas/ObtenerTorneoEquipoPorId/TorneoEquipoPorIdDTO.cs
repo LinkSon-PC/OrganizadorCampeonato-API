@@ -12,6 +12,8 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.TorneoEquipos.Consultas.Ob
         public DateTime FechaInscripcion { get; init; }
         public required EstadoInscripcion Estado { get; init; }
         public int? Posicion { get; init; }
+        public string? Grupo { get; init; }
+        public int? PosicionGrupo { get; init; }
         public DateTime FechaCreacion { get; init; }
         public DateTime? UltimaFechaModificacion { get; init; }
     }

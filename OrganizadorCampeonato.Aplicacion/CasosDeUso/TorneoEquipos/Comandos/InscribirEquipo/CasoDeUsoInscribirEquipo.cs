@@ -46,7 +46,9 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.TorneoEquipos.Comandos.Ins
                 request.Id,
                 request.TorneoId,
                 request.EquipoId,
-                request.Posicion
+                request.Posicion,
+                request.Grupo,
+                request.PosicionGrupo
             );
 
             try

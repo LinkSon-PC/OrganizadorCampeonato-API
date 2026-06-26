@@ -25,8 +25,12 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Partidos.Comandos.AgregarP
                 request.FechaHora,
                 request.Lugar,
                 request.TorneoId,
-                request.Ronda,
-                request.Grupo ?? string.Empty
+                request.Fase,
+                request.Jornada,
+                request.Grupo ?? string.Empty,
+                request.NumeroRondaKO,
+                request.PartidoOrigenLocalId,
+                request.PartidoOrigenVisitanteId
             );
 
             try

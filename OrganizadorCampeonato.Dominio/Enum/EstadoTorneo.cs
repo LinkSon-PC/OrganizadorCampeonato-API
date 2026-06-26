@@ -4,8 +4,9 @@ namespace OrganizadorCampeonato.Dominio.Enum
     {
         Planificado = 1,
         InscripcionesAbiertas = 2,
-        EnCurso = 3,
-        Finalizado = 4,
-        Cancelado = 5
+        EnFaseGrupos = 3,
+        EnFaseEliminatoria = 4,
+        Finalizado = 5,
+        Cancelado = 6
     }
 }

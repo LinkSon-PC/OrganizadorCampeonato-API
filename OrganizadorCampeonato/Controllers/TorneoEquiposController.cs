@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OrganizadorCampeonato.Aplicacion.CasosDeUso.TorneoEquipos.Comandos.AsignarGrupoEquipo;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.TorneoEquipos.Comandos.EliminarTorneoEquipo;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.TorneoEquipos.Comandos.InscribirEquipo;
 using OrganizadorCampeonato.Aplicacion.CasosDeUso.TorneoEquipos.Consultas.ObtenerEquiposPorTorneo;
@@ -43,7 +44,9 @@ namespace OrganizadorCampeonato.Controllers
             {
                 Id = Guid.CreateVersion7(),
                 TorneoId = dto.TorneoId,
-                EquipoId = dto.EquipoId
+                EquipoId = dto.EquipoId,
+                Grupo = dto.Grupo,
+                PosicionGrupo = dto.PosicionGrupo
             };
 
             await mediator.Send(comando);
@@ -54,6 +57,20 @@ namespace OrganizadorCampeonato.Controllers
         public async Task<ActionResult> Delete(Guid id)
         {
             var comando = new ComandoEliminarTorneoEquipo { Id = id };
+            await mediator.Send(comando);
+            return Ok();
+        }
+
+        [HttpPut("{id:guid}/asignar-grupo")]
+        public async Task<ActionResult> AsignarGrupo(Guid id, [FromBody] AsignarGrupoEquipoDTO dto)
+        {
+            var comando = new ComandoAsignarGrupoEquipo
+            {
+                Id = id,
+                Grupo = dto.Grupo,
+                PosicionGrupo = dto.PosicionGrupo
+            };
+
             await mediator.Send(comando);
             return Ok();
         }

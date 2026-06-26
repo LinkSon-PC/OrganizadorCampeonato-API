@@ -14,6 +14,8 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.TorneoEquipos.Consultas.Ob
                 FechaInscripcion = entity.FechaInscripcion,
                 Estado = entity.Estado,
                 Posicion = entity.Posicion,
+                Grupo = entity.Grupo,
+                PosicionGrupo = entity.PosicionGrupo,
                 FechaCreacion = entity.FechaCreacion,
                 UltimaFechaModificacion = entity.UltimaFechaModificacion
             };

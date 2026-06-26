@@ -46,8 +46,12 @@ namespace OrganizadorCampeonato.Controllers
                 FechaHora = dto.FechaHora,
                 Lugar = dto.Lugar,
                 TorneoId = dto.TorneoId,
-                Ronda = dto.Ronda,
-                Grupo = dto.Grupo
+                Fase = dto.Fase,
+                Jornada = dto.Jornada,
+                Grupo = dto.Grupo,
+                NumeroRondaKO = dto.NumeroRondaKO,
+                PartidoOrigenLocalId = dto.PartidoOrigenLocalId,
+                PartidoOrigenVisitanteId = dto.PartidoOrigenVisitanteId
             };
 
             var resultado = await mediator.Send(comando);

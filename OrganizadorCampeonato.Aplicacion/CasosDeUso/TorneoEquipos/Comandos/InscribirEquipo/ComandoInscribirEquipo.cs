@@ -9,5 +9,7 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.TorneoEquipos.Comandos.Ins
         public required Guid TorneoId { get; init; }
         public required Guid EquipoId { get; init; }
         public int? Posicion { get; init; }
+        public string? Grupo { get; init; }
+        public int? PosicionGrupo { get; init; }
     }
 }

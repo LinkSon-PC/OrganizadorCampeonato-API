@@ -38,8 +38,12 @@ namespace OrganizadorCampeonato.Aplicacion.CasosDeUso.Partidos.Comandos.Cancelar
                 partidoExistente.FechaHora,
                 partidoExistente.Lugar,
                 partidoExistente.TorneoId,
-                partidoExistente.Ronda,
-                partidoExistente.Grupo ?? string.Empty
+                partidoExistente.Fase,
+                partidoExistente.Jornada,
+                partidoExistente.Grupo ?? string.Empty,
+                partidoExistente.NumeroRondaKO,
+                partidoExistente.PartidoOrigenLocalId,
+                partidoExistente.PartidoOrigenVisitanteId
             )
             {
                 Estado = EstadoPartido.Cancelada

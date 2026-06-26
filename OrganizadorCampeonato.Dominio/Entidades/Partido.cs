@@ -12,7 +12,7 @@ namespace OrganizadorCampeonato.Dominio.Entidades
     {
         private Partido() { }
 
-        public Partido(Guid id, DateTime fechaHora, string lugar, Guid torneoId, int ronda, string grupo = "") : base(id)
+        public Partido(Guid id, DateTime fechaHora, string lugar, Guid torneoId, FasePartido fase, int jornada, string grupo = "", int? numeroRondaKO = null, Guid? partidoOrigenLocalId = null, Guid? partidoOrigenVisitanteId = null) : base(id)
         {
             ValidarFechaHora(fechaHora);
             ValidarLugar(lugar);
@@ -20,17 +20,28 @@ namespace OrganizadorCampeonato.Dominio.Entidades
             FechaHora = fechaHora;
             Lugar = lugar.Trim();
             TorneoId = torneoId;
-            Ronda = ronda;
+            Fase = fase;
+            Jornada = jornada;
             Grupo = grupo.Trim();
+            NumeroRondaKO = numeroRondaKO;
+            PartidoOrigenLocalId = partidoOrigenLocalId;
+            PartidoOrigenVisitanteId = partidoOrigenVisitanteId;
             Estado = EstadoPartido.Programada;
         }
 
         public DateTime FechaHora { get; init; }
         public string Lugar { get; init; } = null!;
         public Guid TorneoId { get; init; }
-        public int Ronda { get; init; }
+        public FasePartido Fase { get; init; }
+        public int Jornada { get; init; }
         public string? Grupo { get; init; }
+        public int? NumeroRondaKO { get; init; }
         public EstadoPartido Estado { get; init; }
+
+        public Guid? PartidoOrigenLocalId { get; init; }
+        public Guid? PartidoOrigenVisitanteId { get; init; }
+        public Partido? PartidoOrigenLocal { get; init; }
+        public Partido? PartidoOrigenVisitante { get; init; }
 
         [NotMapped]
         public int PuntosLocal => ResultadosPeriodos?.Sum(r => r.PuntosLocal) ?? 0;
