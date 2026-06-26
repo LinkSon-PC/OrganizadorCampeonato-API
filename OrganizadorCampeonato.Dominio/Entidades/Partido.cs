@@ -51,8 +51,11 @@ namespace OrganizadorCampeonato.Dominio.Entidades
 
         public Torneo? Torneo { get; init; }
         public List<PartidoEquipo> PartidoEquipos { get; init; } = new();
-        public List<PartidoArbitro> PartidoArbitros { get; init; } = new();
+        public List<OficialPartido> OficialesPartido { get; init; } = new();
         public List<ResultadoPeriodo> ResultadosPeriodos { get; init; } = new();
+        public List<JugadorPartido> JugadoresPartido { get; init; } = new();
+        public List<Falta> Faltas { get; init; } = new();
+        public List<TiempoMuerto> TiemposMuertos { get; init; } = new();
 
         public void ValidarFechaHora(DateTime fechaHora)
         {
